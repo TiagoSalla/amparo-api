@@ -1,5 +1,6 @@
 package com.amparo.amparoapi.domain.model
 
+import com.amparo.amparoapi.domain.enums.FederativeUnit
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
 import java.time.LocalDateTime
@@ -30,8 +31,9 @@ data class AddressEntity(
     @Column(name = "city_name")
     val cityName: String,
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "federative_unit")
-    val federativeUnit: String,
+    val federativeUnit: FederativeUnit,
 
     @OneToMany(mappedBy = "address", fetch = FetchType.LAZY, cascade = [CascadeType.REMOVE])
     val responsibleList: List<ResponsibleEntity>?,

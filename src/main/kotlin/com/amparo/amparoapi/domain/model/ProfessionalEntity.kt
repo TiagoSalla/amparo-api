@@ -23,7 +23,10 @@ data class ProfessionalEntity(
     val socialName: String? = null,
 
     @Column(name = "nickname")
-    val nickname: String,
+    val nickname: String? = null,
+
+    @Column(name = "user")
+    val user: String,
 
     @Column(name = "password")
     val password: String,

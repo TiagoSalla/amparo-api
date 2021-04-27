@@ -34,8 +34,8 @@ data class MedicineEntity(
     @Column(name = "due_date")
     val dueDate: Date,
 
-    @Column(name = "status")
-    val status: Boolean,
+    @Column(name = "status_active")
+    val statusActive: Boolean,
 
     @ManyToMany(mappedBy = "medicineList")
     val treatmentList: List<TreatmentEntity>?,
