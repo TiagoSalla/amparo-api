@@ -10,7 +10,7 @@ data class ResponsibleEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "responsible_id")
-    val id: Long,
+    var id: Long? = null,
 
     @Column(name = "name")
     val name: String,
@@ -43,9 +43,9 @@ data class ResponsibleEntity(
 
     @CreationTimestamp
     @Column
-    val createdAt: LocalDateTime,
+    val createdAt: LocalDateTime? = null,
 
     @UpdateTimestamp
     @Column
-    val updatedAt: LocalDateTime
+    val updatedAt: LocalDateTime? = null
 )

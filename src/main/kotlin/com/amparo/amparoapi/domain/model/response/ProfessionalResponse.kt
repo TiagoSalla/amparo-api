@@ -6,7 +6,7 @@ import com.amparo.amparoapi.domain.enums.ProfessionalSpecialty
 import com.amparo.amparoapi.domain.enums.Race
 
 data class ProfessionalResponse(
-    val id: Long,
+    val id: Long?,
     val name: String,
     val socialName: String? = null,
     val nickname: String? = null,

@@ -3,9 +3,9 @@ package com.amparo.amparoapi.domain.model.request.update
 import com.amparo.amparoapi.domain.enums.Gender
 import com.amparo.amparoapi.domain.enums.MaritalStatus
 import com.amparo.amparoapi.domain.enums.Race
+import com.amparo.amparoapi.domain.model.HealthInsuranceEntity
 
 data class ResidentUpdateRequest(
-    val id: Long,
     val name: String,
     val socialName: String? = null,
     val nickname: String? = null,
@@ -15,5 +15,5 @@ data class ResidentUpdateRequest(
     val gender: Gender,
     val maritalStatus: MaritalStatus,
     val birthDate: String,
-    val healthInsuranceId: Long
+    val healthInsurance: HealthInsuranceEntity
 )

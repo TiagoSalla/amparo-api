@@ -1,12 +1,13 @@
 package com.amparo.amparoapi.service
 
-import com.amparo.amparoapi.domain.model.DosageEntity
-import com.amparo.amparoapi.domain.model.HealthInsuranceEntity
+import com.amparo.amparoapi.domain.model.request.create.HealthInsuranceCreateRequest
+import com.amparo.amparoapi.domain.model.request.update.HealthInsuranceUpdateRequest
+import com.amparo.amparoapi.domain.model.response.HealthInsuranceResponse
 
 interface HealthInsuranceService {
-    fun findAll(): List<HealthInsuranceEntity>
-    fun findById(id: Long): HealthInsuranceEntity
-    fun create(healthInsuranceEntity: HealthInsuranceEntity)
-    fun update(id: Long, healthInsuranceEntity: HealthInsuranceEntity)
+    fun findAll(): List<HealthInsuranceResponse>
+    fun findById(id: Long): HealthInsuranceResponse
+    fun create(healthInsuranceRequest: HealthInsuranceCreateRequest)
+    fun update(id: Long, healthInsuranceRequest: HealthInsuranceUpdateRequest)
     fun delete(id: Long)
 }

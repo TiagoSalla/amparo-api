@@ -5,7 +5,7 @@ import com.amparo.amparoapi.domain.enums.MaritalStatus
 import com.amparo.amparoapi.domain.enums.Race
 
 data class ResidentResponse(
-    val id: Long,
+    val id: Long?,
     val name: String,
     val socialName: String? = null,
     val nickname: String? = null,
@@ -16,7 +16,7 @@ data class ResidentResponse(
     val maritalStatus: MaritalStatus,
     val birthDate: String,
     val healthInsurance: HealthInsuranceResponse,
-    val responsibleList: List<ResidentResponse>? = null,
+    val responsibleList: List<ResponsibleResponse>? = null,
     val treatment: TreatmentResponse? = null,
     val createdAt: String,
     val updatedAt: String

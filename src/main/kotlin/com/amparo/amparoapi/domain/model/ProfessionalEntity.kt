@@ -14,7 +14,7 @@ data class ProfessionalEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "professional_id")
-    val id: Long,
+    var id: Long? = null,
 
     @Column(name = "name")
     val name: String,
@@ -25,8 +25,8 @@ data class ProfessionalEntity(
     @Column(name = "nickname")
     val nickname: String? = null,
 
-    @Column(name = "user")
-    val user: String,
+    @Column(name = "username")
+    val username: String,
 
     @Column(name = "password")
     val password: String,
@@ -73,13 +73,13 @@ data class ProfessionalEntity(
     val residentialPhone: String? = null,
 
     @OneToMany(mappedBy = "responsibleProfessional", fetch = FetchType.LAZY, cascade = [CascadeType.REMOVE])
-    val treatmentList: List<TreatmentEntity>?,
+    val treatmentList: List<TreatmentEntity>? = null,
 
     @CreationTimestamp
     @Column
-    val createdAt: LocalDateTime,
+    val createdAt: LocalDateTime? = null,
 
     @UpdateTimestamp
     @Column
-    val updatedAt: LocalDateTime
+    val updatedAt: LocalDateTime? = null
 )

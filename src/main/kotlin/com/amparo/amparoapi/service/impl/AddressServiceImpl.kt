@@ -1,28 +1,48 @@
 package com.amparo.amparoapi.service.impl
 
-import com.amparo.amparoapi.domain.model.AddressEntity
+import com.amparo.amparoapi.domain.model.request.create.AddressCreateRequest
+import com.amparo.amparoapi.domain.model.request.update.AddressUpdateRequest
+import com.amparo.amparoapi.domain.model.response.AddressResponse
 import com.amparo.amparoapi.domain.repository.AddressRepository
+import com.amparo.amparoapi.mapper.toEntity
+import com.amparo.amparoapi.mapper.toResponse
 import com.amparo.amparoapi.service.AddressService
+import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
+import org.springframework.web.client.HttpClientErrorException
 
 @Service
-class AddressServiceImpl(val addressRepository: AddressRepository) : AddressService {
+final class AddressServiceImpl(private val addressRepository: AddressRepository) : AddressService {
+    override fun findAll(): List<AddressResponse> = addressRepository.findAll().map { it.toResponse() }
 
-    override fun findAll(): List<AddressEntity> = addressRepository.findAll()
-
-    override fun findById(id: Long): AddressEntity {
-        TODO("Not yet implemented")
+    override fun findById(id: Long): AddressResponse {
+        val address = addressRepository.findById(id)
+        if(address.isPresent) {
+            return address.get().toResponse()
+        } else {
+            throw HttpClientErrorException(HttpStatus.NOT_FOUND)
+        }
     }
 
-    override fun create(addressEntity: AddressEntity) {
-        addressRepository.save(addressEntity)
+    override fun create(addressRequest: AddressCreateRequest) {
+        addressRepository.save(addressRequest.toEntity())
     }
 
-    override fun update(id: Long, addressEntity: AddressEntity) {
-        TODO("Not yet implemented")
+    override fun update(id: Long, addressRequest: AddressUpdateRequest) {
+        if(addressRepository.findById(id).isPresent) {
+            val address = addressRequest.toEntity()
+            address.id = id
+            addressRepository.save(address)
+        } else {
+            throw HttpClientErrorException(HttpStatus.NOT_FOUND)
+        }
     }
 
     override fun delete(id: Long) {
-        TODO("Not yet implemented")
+        if(addressRepository.findById(id).isPresent) {
+            addressRepository.deleteById(id)
+        } else {
+            throw HttpClientErrorException(HttpStatus.NOT_FOUND)
+        }
     }
 }

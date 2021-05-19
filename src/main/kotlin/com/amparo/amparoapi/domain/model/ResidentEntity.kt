@@ -13,7 +13,7 @@ data class ResidentEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "resident_id")
-    val id: Long,
+    var id: Long? = null,
 
     @Column(name = "name")
     val name: String,
@@ -57,9 +57,9 @@ data class ResidentEntity(
 
     @CreationTimestamp
     @Column
-    val createdAt: LocalDateTime,
+    val createdAt: LocalDateTime? = null,
 
     @UpdateTimestamp
     @Column
-    val updatedAt: LocalDateTime
+    val updatedAt: LocalDateTime? = null
 )

@@ -15,7 +15,7 @@ data class MedicineEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "medicine_id")
-    val id: Long,
+    var id: Long? = null,
 
     @Column(name = "name")
     val name: String,
@@ -38,13 +38,13 @@ data class MedicineEntity(
     val statusActive: Boolean,
 
     @ManyToMany(mappedBy = "medicineList")
-    val treatmentList: List<TreatmentEntity>?,
+    val treatmentList: List<TreatmentEntity>? = null,
 
     @CreationTimestamp
     @Column
-    val createdAt: LocalDateTime,
+    val createdAt: LocalDateTime? = null,
 
     @UpdateTimestamp
     @Column
-    val updatedAt: LocalDateTime
+    val updatedAt: LocalDateTime? = null
 )

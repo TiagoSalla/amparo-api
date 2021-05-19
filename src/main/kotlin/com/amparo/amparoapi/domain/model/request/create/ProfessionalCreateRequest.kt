@@ -4,11 +4,14 @@ import com.amparo.amparoapi.domain.enums.Gender
 import com.amparo.amparoapi.domain.enums.MaritalStatus
 import com.amparo.amparoapi.domain.enums.ProfessionalSpecialty
 import com.amparo.amparoapi.domain.enums.Race
+import com.amparo.amparoapi.domain.model.AddressEntity
 
 data class ProfessionalCreateRequest(
     val name: String,
     val socialName: String? = null,
     val nickname: String? = null,
+    val username: String,
+    val password: String,
     val professionalSpecialty: ProfessionalSpecialty,
     val register: String,
     val cpf: String,
@@ -17,7 +20,7 @@ data class ProfessionalCreateRequest(
     val race: Race,
     val gender: Gender,
     val maritalStatus: MaritalStatus,
-    val addressId: Long,
+    val address: AddressEntity,
     val email: String,
     val mobilePhone: String,
     val residentialPhone: String? = null

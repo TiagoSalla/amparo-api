@@ -11,7 +11,7 @@ data class AddressEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "address_id")
-    val id: Long,
+    var id: Long? = null,
 
     @Column(name = "street_name")
     val streetName: String,
@@ -36,16 +36,16 @@ data class AddressEntity(
     val federativeUnit: FederativeUnit,
 
     @OneToMany(mappedBy = "address", fetch = FetchType.LAZY, cascade = [CascadeType.REMOVE])
-    val responsibleList: List<ResponsibleEntity>?,
+    val responsibleList: List<ResponsibleEntity>? = null,
 
     @OneToMany(mappedBy = "address", fetch = FetchType.LAZY, cascade = [CascadeType.REMOVE])
-    val professionalList: List<ProfessionalEntity>?,
+    val professionalList: List<ProfessionalEntity>? = null,
 
     @CreationTimestamp
     @Column
-    val createdAt: LocalDateTime,
+    val createdAt: LocalDateTime? = null,
 
     @UpdateTimestamp
     @Column
-    val updatedAt: LocalDateTime
+    val updatedAt: LocalDateTime? = null
 )

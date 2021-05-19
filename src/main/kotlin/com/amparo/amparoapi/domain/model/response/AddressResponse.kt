@@ -1,7 +1,7 @@
 package com.amparo.amparoapi.domain.model.response
 
 data class AddressResponse(
-    val id: Long,
+    val id: Long?,
     val streetName: String,
     val district: String,
     val number: Int,

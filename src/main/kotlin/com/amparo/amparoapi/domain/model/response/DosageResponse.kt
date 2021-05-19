@@ -5,7 +5,7 @@ import com.amparo.amparoapi.domain.enums.FrequencyType
 import com.amparo.amparoapi.domain.enums.QuantityType
 
 data class DosageResponse(
-    val id: Long,
+    val id: Long?,
     val quantity: Int,
     val quantityType: QuantityType,
     val frequency: Int,
@@ -13,4 +13,5 @@ data class DosageResponse(
     val administrationRoute: AdministrationRoute,
     val medicineList: List<DosageResponse>? = null,
     val createdAt: String,
-    val updatedAt: String)
+    val updatedAt: String
+)

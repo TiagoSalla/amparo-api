@@ -1,11 +1,13 @@
 package com.amparo.amparoapi.service
 
-import com.amparo.amparoapi.domain.model.DosageEntity
+import com.amparo.amparoapi.domain.model.request.create.ResponsibleCreateRequest
+import com.amparo.amparoapi.domain.model.request.update.ResponsibleUpdateRequest
+import com.amparo.amparoapi.domain.model.response.ResponsibleResponse
 
 interface ResponsibleService {
-    fun findAll(): List<DosageEntity>
-    fun findById(id: Long): DosageEntity
-    fun create(dosageEntity: DosageEntity)
-    fun update(id: Long, dosageEntity: DosageEntity)
+    fun findAll(): List<ResponsibleResponse>
+    fun findById(id: Long): ResponsibleResponse
+    fun create(responsibleRequest: ResponsibleCreateRequest)
+    fun update(id: Long, responsibleRequest: ResponsibleUpdateRequest)
     fun delete(id: Long)
 }

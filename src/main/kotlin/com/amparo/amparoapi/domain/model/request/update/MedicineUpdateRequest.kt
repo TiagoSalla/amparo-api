@@ -1,10 +1,12 @@
 package com.amparo.amparoapi.domain.model.request.update
 
+import com.amparo.amparoapi.domain.model.DosageEntity
+import java.util.Date
+
 data class MedicineUpdateRequest(
-    val id: Long,
     val name: String,
-    val dosageIdList: List<Long>,
+    val dosageList: List<DosageEntity>,
     val laboratory: String,
-    val dueDate: String,
+    val dueDate: Date,
     val statusActive: Boolean
 )

@@ -1,7 +1,7 @@
 package com.amparo.amparoapi.domain.model.response
 
 data class ResponsibleResponse(
-    val id: Long,
+    val id: Long?,
     val name: String,
     val socialName: String? = null,
     val cpf: String,

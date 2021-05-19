@@ -3,6 +3,7 @@ package com.amparo.amparoapi.domain.model.request.create
 import com.amparo.amparoapi.domain.enums.Gender
 import com.amparo.amparoapi.domain.enums.MaritalStatus
 import com.amparo.amparoapi.domain.enums.Race
+import com.amparo.amparoapi.domain.model.HealthInsuranceEntity
 
 data class ResidentCreateRequest(
     val name: String,
@@ -14,5 +15,5 @@ data class ResidentCreateRequest(
     val gender: Gender,
     val maritalStatus: MaritalStatus,
     val birthDate: String,
-    val healthInsuranceId: Long
+    val healthInsurance: HealthInsuranceEntity
 )

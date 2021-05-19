@@ -10,7 +10,7 @@ data class TreatmentEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "treatment_id")
-    val id: Long,
+    var id: Long? = null,
 
     @OneToOne
     @JoinColumn(name = "resident_id")
@@ -30,9 +30,9 @@ data class TreatmentEntity(
 
     @CreationTimestamp
     @Column
-    val createdAt: LocalDateTime,
+    val createdAt: LocalDateTime? = null,
 
     @UpdateTimestamp
     @Column
-    val updatedAt: LocalDateTime
+    val updatedAt: LocalDateTime? = null
 )

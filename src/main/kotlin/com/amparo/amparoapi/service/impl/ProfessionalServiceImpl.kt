@@ -1,28 +1,48 @@
 package com.amparo.amparoapi.service.impl
 
-import com.amparo.amparoapi.domain.model.ProfessionalEntity
+import com.amparo.amparoapi.domain.model.request.create.ProfessionalCreateRequest
+import com.amparo.amparoapi.domain.model.request.update.ProfessionalUpdateRequest
+import com.amparo.amparoapi.domain.model.response.ProfessionalResponse
+import com.amparo.amparoapi.domain.repository.ProfessionalRepository
+import com.amparo.amparoapi.mapper.toEntity
+import com.amparo.amparoapi.mapper.toResponse
 import com.amparo.amparoapi.service.ProfessionalService
+import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
+import org.springframework.web.client.HttpClientErrorException
 
 @Service
-class ProfessionalServiceImpl : ProfessionalService {
-    override fun findAll(): List<ProfessionalEntity> {
-        TODO("Not yet implemented")
+final class ProfessionalServiceImpl(private val professionalRepository: ProfessionalRepository) : ProfessionalService {
+    override fun findAll(): List<ProfessionalResponse> = professionalRepository.findAll().map { it.toResponse() }
+
+    override fun findById(id: Long): ProfessionalResponse {
+        val professional = professionalRepository.findById(id)
+        if(professional.isPresent) {
+            return professional.get().toResponse()
+        } else {
+            throw HttpClientErrorException(HttpStatus.NOT_FOUND)
+        }
     }
 
-    override fun findById(id: Long): ProfessionalEntity {
-        TODO("Not yet implemented")
+    override fun create(professionalRequest: ProfessionalCreateRequest) {
+        professionalRepository.save(professionalRequest.toEntity())
     }
 
-    override fun create(professionalEntity: ProfessionalEntity) {
-        TODO("Not yet implemented")
-    }
-
-    override fun update(id: Long, professionalEntity: ProfessionalEntity) {
-        TODO("Not yet implemented")
+    override fun update(id: Long, professionalRequest: ProfessionalUpdateRequest) {
+        if(professionalRepository.findById(id).isPresent) {
+            val professional = professionalRequest.toEntity()
+            professional.id = id
+            professionalRepository.save(professional)
+        } else {
+            throw HttpClientErrorException(HttpStatus.NOT_FOUND)
+        }
     }
 
     override fun delete(id: Long) {
-        TODO("Not yet implemented")
+        if(professionalRepository.findById(id).isPresent) {
+            professionalRepository.deleteById(id)
+        } else {
+            throw HttpClientErrorException(HttpStatus.NOT_FOUND)
+        }
     }
 }

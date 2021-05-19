@@ -10,7 +10,7 @@ data class HealthInsuranceEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "health_insurance_id")
-    val id: Long,
+    var id: Long? = null,
 
     @Column(name = "name")
     val name: String,
@@ -19,16 +19,16 @@ data class HealthInsuranceEntity(
     val inscription: Int,
 
     @Column(name = "observation")
-    val observation: String?,
+    val observation: String? = null,
 
     @OneToMany(mappedBy = "healthInsurance", fetch = FetchType.LAZY, cascade = [CascadeType.REMOVE])
-    val residentList: List<ResidentEntity>?,
+    val residentList: List<ResidentEntity>? = null,
 
     @CreationTimestamp
     @Column
-    val createdAt: LocalDateTime,
+    val createdAt: LocalDateTime? = null,
 
     @UpdateTimestamp
     @Column
-    val updatedAt: LocalDateTime
+    val updatedAt: LocalDateTime? = null
 )

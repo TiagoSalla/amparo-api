@@ -1,11 +1,13 @@
 package com.amparo.amparoapi.service
 
-import com.amparo.amparoapi.domain.model.ProfessionalEntity
+import com.amparo.amparoapi.domain.model.request.create.ProfessionalCreateRequest
+import com.amparo.amparoapi.domain.model.request.update.ProfessionalUpdateRequest
+import com.amparo.amparoapi.domain.model.response.ProfessionalResponse
 
 interface ProfessionalService {
-    fun findAll(): List<ProfessionalEntity>
-    fun findById(id: Long): ProfessionalEntity
-    fun create(professionalEntity: ProfessionalEntity)
-    fun update(id: Long, professionalEntity: ProfessionalEntity)
+    fun findAll(): List<ProfessionalResponse>
+    fun findById(id: Long): ProfessionalResponse
+    fun create(professionalRequest: ProfessionalCreateRequest)
+    fun update(id: Long, professionalRequest: ProfessionalUpdateRequest)
     fun delete(id: Long)
 }

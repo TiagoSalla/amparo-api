@@ -13,7 +13,7 @@ data class DosageEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "dosage_id")
-    val id: Long,
+    var id: Long? = null,
 
     @Column(name = "quantity")
     val quantity: Int,
@@ -34,13 +34,13 @@ data class DosageEntity(
     val administrationRoute: AdministrationRoute,
 
     @ManyToMany(mappedBy = "dosageList")
-    val medicineList: List<MedicineEntity>?,
+    val medicineList: List<MedicineEntity>? = null,
 
     @CreationTimestamp
     @Column
-    val createdAt: LocalDateTime,
+    val createdAt: LocalDateTime? = null,
 
     @UpdateTimestamp
     @Column
-    val updatedAt: LocalDateTime
+    val updatedAt: LocalDateTime? = null
 )
