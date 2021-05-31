@@ -6,10 +6,10 @@ import com.amparo.amparoapi.domain.enums.ProfessionalSpecialty
 import com.amparo.amparoapi.domain.enums.Race
 
 data class ProfessionalResponse(
-    val id: Long?,
+    val id: Long,
     val name: String,
-    val socialName: String? = null,
-    val nickname: String? = null,
+    val socialName: String?,
+    val nickname: String?,
     val professionalSpecialty: ProfessionalSpecialty,
     val register: String,
     val cpf: String,
@@ -21,8 +21,7 @@ data class ProfessionalResponse(
     val address: AddressResponse,
     val email: String,
     val mobilePhone: String,
-    val residentialPhone: String? = null,
-    val treatmentList: List<TreatmentResponse>? = null,
-    val createdAt: String,
-    val updatedAt: String
+    val residentialPhone: String?,
+    val createdAt: String?,
+    val updatedAt: String?
 )

@@ -1,7 +1,6 @@
 package com.amparo.amparoapi.controller
 
-import com.amparo.amparoapi.domain.model.request.create.AddressCreateRequest
-import com.amparo.amparoapi.domain.model.request.update.AddressUpdateRequest
+import com.amparo.amparoapi.domain.model.request.AddressRequest
 import com.amparo.amparoapi.service.AddressService
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
@@ -22,14 +21,14 @@ final class AddressController(private val addressService: AddressService) {
 
     @ApiOperation(value = "Create an address")
     @PostMapping(value = ["/create"])
-    fun create(@RequestBody addressCreateRequest: AddressCreateRequest) {
-        addressService.create(addressCreateRequest)
+    fun create(@RequestBody addressRequest: AddressRequest) {
+        addressService.create(addressRequest)
     }
 
     @ApiOperation(value = "Update an address")
     @PostMapping(value = ["/update/{id}"])
-    fun update(@PathVariable id: Long, @RequestBody addressUpdateRequest: AddressUpdateRequest) {
-        addressService.update(id, addressUpdateRequest)
+    fun update(@PathVariable id: Long, @RequestBody addressRequest: AddressRequest) {
+        addressService.update(id, addressRequest)
     }
 
     @ApiOperation(value = "Delete an address")

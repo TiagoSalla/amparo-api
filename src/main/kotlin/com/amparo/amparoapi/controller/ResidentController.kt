@@ -1,7 +1,6 @@
 package com.amparo.amparoapi.controller
 
-import com.amparo.amparoapi.domain.model.request.create.ResidentCreateRequest
-import com.amparo.amparoapi.domain.model.request.update.ResidentUpdateRequest
+import com.amparo.amparoapi.domain.model.request.ResidentRequest
 import com.amparo.amparoapi.service.ResidentService
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
@@ -22,14 +21,14 @@ final class ResidentController(private val residentService: ResidentService) {
 
     @ApiOperation(value = "Create a resident")
     @PostMapping(value = ["/create"])
-    fun create(@RequestBody residentCreateRequest: ResidentCreateRequest) {
-        residentService.create(residentCreateRequest)
+    fun create(@RequestBody residentRequest: ResidentRequest) {
+        residentService.create(residentRequest)
     }
 
     @ApiOperation(value = "Update a resident")
     @PostMapping(value = ["/update/{id}"])
-    fun update(@PathVariable id: Long, @RequestBody residentUpdateRequest: ResidentUpdateRequest) {
-        residentService.update(id, residentUpdateRequest)
+    fun update(@PathVariable id: Long, @RequestBody residentRequest: ResidentRequest) {
+        residentService.update(id, residentRequest)
     }
 
     @ApiOperation(value = "Delete a resident")

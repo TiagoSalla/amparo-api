@@ -11,11 +11,6 @@ import javax.persistence.*
 
 @Entity(name = "professional")
 data class ProfessionalEntity(
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "professional_id")
-    var id: Long? = null,
-
     @Column(name = "name")
     val name: String,
 
@@ -71,15 +66,20 @@ data class ProfessionalEntity(
 
     @Column(name = "residential_phone")
     val residentialPhone: String? = null,
+) {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "professional_id")
+    var id: Long = 0
 
     @OneToMany(mappedBy = "responsibleProfessional", fetch = FetchType.LAZY, cascade = [CascadeType.REMOVE])
-    val treatmentList: List<TreatmentEntity>? = null,
+    val treatmentList: List<TreatmentEntity>? = null
 
     @CreationTimestamp
-    @Column
-    val createdAt: LocalDateTime? = null,
+    @Column(nullable = false)
+    val createdAt: LocalDateTime? = null
 
     @UpdateTimestamp
-    @Column
+    @Column(nullable = false)
     val updatedAt: LocalDateTime? = null
-)
+}

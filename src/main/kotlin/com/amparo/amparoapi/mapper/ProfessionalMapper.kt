@@ -1,67 +1,49 @@
 package com.amparo.amparoapi.mapper
 
 import com.amparo.amparoapi.domain.model.ProfessionalEntity
-import com.amparo.amparoapi.domain.model.request.create.ProfessionalCreateRequest
-import com.amparo.amparoapi.domain.model.request.update.ProfessionalUpdateRequest
+import com.amparo.amparoapi.domain.model.request.ProfessionalRequest
 import com.amparo.amparoapi.domain.model.response.ProfessionalResponse
+import java.time.format.DateTimeFormatter
+
+private val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")
 
 fun ProfessionalEntity.toResponse() = ProfessionalResponse(
-    id = id,
-    name = name,
-    socialName = socialName,
-    nickname = nickname,
-    professionalSpecialty = professionalSpecialty,
-    register = register,
-    cpf = cpf,
-    rg = rg,
-    birthDate = birthDate,
-    race = race,
-    gender = gender,
-    maritalStatus = maritalStatus,
-    address = address.toResponse(),
-    email = email,
-    mobilePhone = mobilePhone,
-    residentialPhone = residentialPhone,
-    createdAt = createdAt.toString(),
-    updatedAt = updatedAt.toString()
+    id,
+    name,
+    socialName,
+    nickname,
+    professionalSpecialty,
+    register,
+    cpf,
+    rg,
+    birthDate,
+    race,
+    gender,
+    maritalStatus,
+    address.toResponse(),
+    email,
+    mobilePhone,
+    residentialPhone,
+    createdAt?.format(formatter),
+    updatedAt?.format(formatter)
 )
 
-fun ProfessionalCreateRequest.toEntity() = ProfessionalEntity(
-    name = name,
-    socialName = socialName,
-    nickname = nickname,
-    username = username,
-    password = password,
-    professionalSpecialty = professionalSpecialty,
-    register = register,
-    cpf = cpf,
-    rg = rg,
-    birthDate = birthDate,
-    race = race,
-    gender = gender,
-    maritalStatus = maritalStatus,
-    address = address,
-    email = email,
-    mobilePhone = mobilePhone,
-    residentialPhone = residentialPhone
-)
-
-fun ProfessionalUpdateRequest.toEntity() = ProfessionalEntity(
-    name = name,
-    socialName = socialName,
-    nickname = nickname,
-    username = username,
-    password = password,
-    professionalSpecialty = professionalSpecialty,
-    register = register,
-    cpf = cpf,
-    rg = rg,
-    birthDate = birthDate,
-    race = race,
-    gender = gender,
-    maritalStatus = maritalStatus,
-    address = address,
-    email = email,
-    mobilePhone = mobilePhone,
-    residentialPhone = residentialPhone
+fun ProfessionalRequest.toEntity() = ProfessionalEntity(
+    name,
+    socialName,
+    nickname,
+    username,
+    password,
+    professionalSpecialty,
+    register,
+    cpf,
+    rg,
+    birthDate,
+    race,
+    gender,
+    maritalStatus,
+    address,
+    email,
+    mobilePhone,
+    residentialPhone
 )

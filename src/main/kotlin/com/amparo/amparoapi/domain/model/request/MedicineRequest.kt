@@ -1,9 +1,9 @@
-package com.amparo.amparoapi.domain.model.request.update
+package com.amparo.amparoapi.domain.model.request
 
 import com.amparo.amparoapi.domain.model.DosageEntity
 import java.util.Date
 
-data class MedicineUpdateRequest(
+data class MedicineRequest(
     val name: String,
     val dosageList: List<DosageEntity>,
     val laboratory: String,

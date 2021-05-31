@@ -1,7 +1,6 @@
 package com.amparo.amparoapi.controller
 
-import com.amparo.amparoapi.domain.model.request.create.HealthInsuranceCreateRequest
-import com.amparo.amparoapi.domain.model.request.update.HealthInsuranceUpdateRequest
+import com.amparo.amparoapi.domain.model.request.HealthInsuranceRequest
 import com.amparo.amparoapi.service.HealthInsuranceService
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
@@ -22,14 +21,14 @@ final class HealthInsuranceController(private val healthInsuranceService: Health
 
     @ApiOperation(value = "Create a health insurance")
     @PostMapping(value = ["/create"])
-    fun create(@RequestBody healthInsuranceCreateRequest: HealthInsuranceCreateRequest) {
-        healthInsuranceService.create(healthInsuranceCreateRequest)
+    fun create(@RequestBody healthInsuranceRequest: HealthInsuranceRequest) {
+        healthInsuranceService.create(healthInsuranceRequest)
     }
 
     @ApiOperation(value = "Update a health insurance")
     @PostMapping(value = ["/update/{id}"])
-    fun update(@PathVariable id: Long, @RequestBody healthInsuranceUpdateRequest: HealthInsuranceUpdateRequest) {
-        healthInsuranceService.update(id, healthInsuranceUpdateRequest)
+    fun update(@PathVariable id: Long, @RequestBody healthInsuranceRequest: HealthInsuranceRequest) {
+        healthInsuranceService.update(id, healthInsuranceRequest)
     }
 
     @ApiOperation(value = "Delete a health insurance")

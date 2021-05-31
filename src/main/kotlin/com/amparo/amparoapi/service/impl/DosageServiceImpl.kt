@@ -1,7 +1,6 @@
 package com.amparo.amparoapi.service.impl
 
-import com.amparo.amparoapi.domain.model.request.create.DosageCreateRequest
-import com.amparo.amparoapi.domain.model.request.update.DosageUpdateRequest
+import com.amparo.amparoapi.domain.model.request.DosageRequest
 import com.amparo.amparoapi.domain.model.response.DosageResponse
 import com.amparo.amparoapi.domain.repository.DosageRepository
 import com.amparo.amparoapi.mapper.toEntity
@@ -17,19 +16,19 @@ final class DosageServiceImpl(private val dosageRepository: DosageRepository) : 
 
     override fun findById(id: Long): DosageResponse {
         val dosage = dosageRepository.findById(id)
-        if(dosage.isPresent) {
+        if (dosage.isPresent) {
             return dosage.get().toResponse()
         } else {
             throw HttpClientErrorException(HttpStatus.NOT_FOUND)
         }
     }
 
-    override fun create(dosageRequest: DosageCreateRequest) {
+    override fun create(dosageRequest: DosageRequest) {
         dosageRepository.save(dosageRequest.toEntity())
     }
 
-    override fun update(id: Long, dosageRequest: DosageUpdateRequest) {
-        if(dosageRepository.findById(id).isPresent) {
+    override fun update(id: Long, dosageRequest: DosageRequest) {
+        if (dosageRepository.findById(id).isPresent) {
             val dosage = dosageRequest.toEntity()
             dosage.id = id
             dosageRepository.save(dosage)
@@ -39,7 +38,7 @@ final class DosageServiceImpl(private val dosageRepository: DosageRepository) : 
     }
 
     override fun delete(id: Long) {
-        if(dosageRepository.findById(id).isPresent) {
+        if (dosageRepository.findById(id).isPresent) {
             dosageRepository.deleteById(id)
         } else {
             throw HttpClientErrorException(HttpStatus.NOT_FOUND)

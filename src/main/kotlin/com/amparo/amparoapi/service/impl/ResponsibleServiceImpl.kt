@@ -1,7 +1,6 @@
 package com.amparo.amparoapi.service.impl
 
-import com.amparo.amparoapi.domain.model.request.create.ResponsibleCreateRequest
-import com.amparo.amparoapi.domain.model.request.update.ResponsibleUpdateRequest
+import com.amparo.amparoapi.domain.model.request.ResponsibleRequest
 import com.amparo.amparoapi.domain.model.response.ResponsibleResponse
 import com.amparo.amparoapi.domain.repository.ResponsibleRepository
 import com.amparo.amparoapi.mapper.toEntity
@@ -17,19 +16,19 @@ final class ResponsibleServiceImpl(private val responsibleRepository: Responsibl
 
     override fun findById(id: Long): ResponsibleResponse {
         val responsible = responsibleRepository.findById(id)
-        if(responsible.isPresent) {
+        if (responsible.isPresent) {
             return responsible.get().toResponse()
         } else {
             throw HttpClientErrorException(HttpStatus.NOT_FOUND)
         }
     }
 
-    override fun create(responsibleRequest: ResponsibleCreateRequest) {
+    override fun create(responsibleRequest: ResponsibleRequest) {
         responsibleRepository.save(responsibleRequest.toEntity())
     }
 
-    override fun update(id: Long, responsibleRequest: ResponsibleUpdateRequest) {
-        if(responsibleRepository.findById(id).isPresent) {
+    override fun update(id: Long, responsibleRequest: ResponsibleRequest) {
+        if (responsibleRepository.findById(id).isPresent) {
             val responsible = responsibleRequest.toEntity()
             responsible.id = id
             responsibleRepository.save(responsible)
@@ -39,7 +38,7 @@ final class ResponsibleServiceImpl(private val responsibleRepository: Responsibl
     }
 
     override fun delete(id: Long) {
-        if(responsibleRepository.findById(id).isPresent) {
+        if (responsibleRepository.findById(id).isPresent) {
             responsibleRepository.deleteById(id)
         } else {
             throw HttpClientErrorException(HttpStatus.NOT_FOUND)

@@ -8,11 +8,6 @@ import javax.persistence.*
 
 @Entity(name = "address")
 data class AddressEntity(
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "address_id")
-    var id: Long? = null,
-
     @Column(name = "street_name")
     val streetName: String,
 
@@ -34,18 +29,23 @@ data class AddressEntity(
     @Enumerated(EnumType.STRING)
     @Column(name = "federative_unit")
     val federativeUnit: FederativeUnit,
+) {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "address_id")
+    var id: Long = 0
 
     @OneToMany(mappedBy = "address", fetch = FetchType.LAZY, cascade = [CascadeType.REMOVE])
-    val responsibleList: List<ResponsibleEntity>? = null,
+    val responsibleList: List<ResponsibleEntity>? = null
 
     @OneToMany(mappedBy = "address", fetch = FetchType.LAZY, cascade = [CascadeType.REMOVE])
-    val professionalList: List<ProfessionalEntity>? = null,
+    val professionalList: List<ProfessionalEntity>? = null
 
     @CreationTimestamp
-    @Column
-    val createdAt: LocalDateTime? = null,
+    @Column(nullable = false)
+    val createdAt: LocalDateTime? = null
 
     @UpdateTimestamp
-    @Column
+    @Column(nullable = false)
     val updatedAt: LocalDateTime? = null
-)
+}

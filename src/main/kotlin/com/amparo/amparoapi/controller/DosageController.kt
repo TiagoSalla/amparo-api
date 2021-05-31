@@ -1,7 +1,6 @@
 package com.amparo.amparoapi.controller
 
-import com.amparo.amparoapi.domain.model.request.create.DosageCreateRequest
-import com.amparo.amparoapi.domain.model.request.update.DosageUpdateRequest
+import com.amparo.amparoapi.domain.model.request.DosageRequest
 import com.amparo.amparoapi.service.DosageService
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
@@ -22,14 +21,14 @@ final class DosageController(private val dosageService: DosageService) {
 
     @ApiOperation(value = "Create a dosage")
     @PostMapping(value = ["/create"])
-    fun create(@RequestBody dosageCreateRequest: DosageCreateRequest) {
-        dosageService.create(dosageCreateRequest)
+    fun create(@RequestBody dosageRequest: DosageRequest) {
+        dosageService.create(dosageRequest)
     }
 
     @ApiOperation(value = "Update a dosage")
     @PostMapping(value = ["/update/{id}"])
-    fun update(@PathVariable id: Long, @RequestBody dosageUpdateRequest: DosageUpdateRequest) {
-        dosageService.update(id, dosageUpdateRequest)
+    fun update(@PathVariable id: Long, @RequestBody dosageRequest: DosageRequest) {
+        dosageService.update(id, dosageRequest)
     }
 
     @ApiOperation(value = "Delete a dosage")

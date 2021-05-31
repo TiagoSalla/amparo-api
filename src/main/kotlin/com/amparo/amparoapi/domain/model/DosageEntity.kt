@@ -10,11 +10,6 @@ import javax.persistence.*
 
 @Entity(name = "dosage")
 data class DosageEntity(
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "dosage_id")
-    var id: Long? = null,
-
     @Column(name = "quantity")
     val quantity: Int,
 
@@ -32,15 +27,20 @@ data class DosageEntity(
     @Enumerated(EnumType.STRING)
     @Column(name = "administration_route")
     val administrationRoute: AdministrationRoute,
+) {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "dosage_id")
+    var id: Long = 0
 
     @ManyToMany(mappedBy = "dosageList")
-    val medicineList: List<MedicineEntity>? = null,
+    val medicineList: List<MedicineEntity>? = null
 
     @CreationTimestamp
-    @Column
-    val createdAt: LocalDateTime? = null,
+    @Column(nullable = false)
+    val createdAt: LocalDateTime? = null
 
     @UpdateTimestamp
-    @Column
+    @Column(nullable = false)
     val updatedAt: LocalDateTime? = null
-)
+}

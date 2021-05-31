@@ -1,7 +1,6 @@
 package com.amparo.amparoapi.service.impl
 
-import com.amparo.amparoapi.domain.model.request.create.ProfessionalCreateRequest
-import com.amparo.amparoapi.domain.model.request.update.ProfessionalUpdateRequest
+import com.amparo.amparoapi.domain.model.request.ProfessionalRequest
 import com.amparo.amparoapi.domain.model.response.ProfessionalResponse
 import com.amparo.amparoapi.domain.repository.ProfessionalRepository
 import com.amparo.amparoapi.mapper.toEntity
@@ -17,19 +16,19 @@ final class ProfessionalServiceImpl(private val professionalRepository: Professi
 
     override fun findById(id: Long): ProfessionalResponse {
         val professional = professionalRepository.findById(id)
-        if(professional.isPresent) {
+        if (professional.isPresent) {
             return professional.get().toResponse()
         } else {
             throw HttpClientErrorException(HttpStatus.NOT_FOUND)
         }
     }
 
-    override fun create(professionalRequest: ProfessionalCreateRequest) {
+    override fun create(professionalRequest: ProfessionalRequest) {
         professionalRepository.save(professionalRequest.toEntity())
     }
 
-    override fun update(id: Long, professionalRequest: ProfessionalUpdateRequest) {
-        if(professionalRepository.findById(id).isPresent) {
+    override fun update(id: Long, professionalRequest: ProfessionalRequest) {
+        if (professionalRepository.findById(id).isPresent) {
             val professional = professionalRequest.toEntity()
             professional.id = id
             professionalRepository.save(professional)
@@ -39,7 +38,7 @@ final class ProfessionalServiceImpl(private val professionalRepository: Professi
     }
 
     override fun delete(id: Long) {
-        if(professionalRepository.findById(id).isPresent) {
+        if (professionalRepository.findById(id).isPresent) {
             professionalRepository.deleteById(id)
         } else {
             throw HttpClientErrorException(HttpStatus.NOT_FOUND)

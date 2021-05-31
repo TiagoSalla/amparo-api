@@ -1,7 +1,6 @@
 package com.amparo.amparoapi.controller
 
-import com.amparo.amparoapi.domain.model.request.create.ProfessionalCreateRequest
-import com.amparo.amparoapi.domain.model.request.update.ProfessionalUpdateRequest
+import com.amparo.amparoapi.domain.model.request.ProfessionalRequest
 import com.amparo.amparoapi.service.ProfessionalService
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
@@ -22,14 +21,14 @@ final class ProfessionalController(private val professionalService: Professional
 
     @ApiOperation(value = "Create a professional")
     @PostMapping(value = ["/create"])
-    fun create(@RequestBody professionalCreateRequest: ProfessionalCreateRequest) {
-        professionalService.create(professionalCreateRequest)
+    fun create(@RequestBody professionalRequest: ProfessionalRequest) {
+        professionalService.create(professionalRequest)
     }
 
     @ApiOperation(value = "Update a professional")
     @PostMapping(value = ["/update/{id}"])
-    fun update(@PathVariable id: Long, @RequestBody professionalUpdateRequest: ProfessionalUpdateRequest) {
-        professionalService.update(id, professionalUpdateRequest)
+    fun update(@PathVariable id: Long, @RequestBody professionalRequest: ProfessionalRequest) {
+        professionalService.update(id, professionalRequest)
     }
 
     @ApiOperation(value = "Delete a professional")

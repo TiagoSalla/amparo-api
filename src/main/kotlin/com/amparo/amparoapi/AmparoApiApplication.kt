@@ -7,5 +7,5 @@ import org.springframework.boot.runApplication
 class AmparoApiApplication
 
 fun main(args: Array<String>) {
-	runApplication<AmparoApiApplication>(*args)
+    runApplication<AmparoApiApplication>(*args)
 }

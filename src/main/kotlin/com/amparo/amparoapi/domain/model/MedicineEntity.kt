@@ -12,11 +12,6 @@ import javax.persistence.*
 
 @Entity(name = "medicine")
 data class MedicineEntity(
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "medicine_id")
-    var id: Long? = null,
-
     @Column(name = "name")
     val name: String,
 
@@ -36,15 +31,20 @@ data class MedicineEntity(
 
     @Column(name = "status_active")
     val statusActive: Boolean,
+) {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "medicine_id")
+    var id: Long = 0
 
     @ManyToMany(mappedBy = "medicineList")
-    val treatmentList: List<TreatmentEntity>? = null,
+    val treatmentList: List<TreatmentEntity>? = null
 
     @CreationTimestamp
-    @Column
-    val createdAt: LocalDateTime? = null,
+    @Column(nullable = false)
+    val createdAt: LocalDateTime? = null
 
     @UpdateTimestamp
-    @Column
+    @Column(nullable = false)
     val updatedAt: LocalDateTime? = null
-)
+}

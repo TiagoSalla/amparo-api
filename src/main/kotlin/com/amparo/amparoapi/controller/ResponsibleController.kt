@@ -1,7 +1,6 @@
 package com.amparo.amparoapi.controller
 
-import com.amparo.amparoapi.domain.model.request.create.ResponsibleCreateRequest
-import com.amparo.amparoapi.domain.model.request.update.ResponsibleUpdateRequest
+import com.amparo.amparoapi.domain.model.request.ResponsibleRequest
 import com.amparo.amparoapi.service.ResponsibleService
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
@@ -22,14 +21,14 @@ final class ResponsibleController(private val responsibleService: ResponsibleSer
 
     @ApiOperation(value = "Create a responsible")
     @PostMapping(value = ["/create"])
-    fun create(@RequestBody responsibleCreateRequest: ResponsibleCreateRequest) {
-        responsibleService.create(responsibleCreateRequest)
+    fun create(@RequestBody responsibleRequest: ResponsibleRequest) {
+        responsibleService.create(responsibleRequest)
     }
 
     @ApiOperation(value = "Update a responsible")
     @PostMapping(value = ["/update/{id}"])
-    fun update(@PathVariable id: Long, @RequestBody responsibleUpdateRequest: ResponsibleUpdateRequest) {
-        responsibleService.update(id, responsibleUpdateRequest)
+    fun update(@PathVariable id: Long, @RequestBody responsibleRequest: ResponsibleRequest) {
+        responsibleService.update(id, responsibleRequest)
     }
 
     @ApiOperation(value = "Delete a responsible")

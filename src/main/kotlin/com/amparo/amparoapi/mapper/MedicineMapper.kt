@@ -1,33 +1,27 @@
 package com.amparo.amparoapi.mapper
 
 import com.amparo.amparoapi.domain.model.MedicineEntity
-import com.amparo.amparoapi.domain.model.request.create.MedicineCreateRequest
-import com.amparo.amparoapi.domain.model.request.update.MedicineUpdateRequest
+import com.amparo.amparoapi.domain.model.request.MedicineRequest
 import com.amparo.amparoapi.domain.model.response.MedicineResponse
+import java.time.format.DateTimeFormatter
+
+private val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")
 
 fun MedicineEntity.toResponse() = MedicineResponse(
-    id = id,
-    name = name,
-    dosageList = dosageList.map { it.toResponse() },
-    laboratory = laboratory,
-    dueDate = dueDate,
-    statusActive = statusActive,
-    createdAt = createdAt.toString(),
-    updatedAt = updatedAt.toString()
+    id,
+    name,
+    dosageList.map { it.toResponse() },
+    laboratory,
+    dueDate,
+    statusActive,
+    createdAt?.format(formatter),
+    updatedAt?.format(formatter)
 )
 
-fun MedicineCreateRequest.toEntity() = MedicineEntity(
-    name = name,
-    dosageList = dosageList,
-    laboratory = laboratory,
-    dueDate = dueDate,
-    statusActive = statusActive
-)
-
-fun MedicineUpdateRequest.toEntity() = MedicineEntity(
-    name = name,
-    dosageList = dosageList,
-    laboratory = laboratory,
-    dueDate = dueDate,
-    statusActive = statusActive
+fun MedicineRequest.toEntity() = MedicineEntity(
+    name,
+    dosageList,
+    laboratory,
+    dueDate,
+    statusActive
 )

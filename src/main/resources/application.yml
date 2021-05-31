@@ -4,7 +4,7 @@ spring:
     show-sql: false
     generate-ddl: false
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
   datasource:
     driver-class-name: org.postgresql.Driver
     name: d4jlp6b864p0sf
@@ -13,4 +13,10 @@ spring:
     url: jdbc:postgresql://ec2-54-162-119-125.compute-1.amazonaws.com:5432/d4jlp6b864p0sf
 
 server:
+#  ssl:
+#    key-store: classpath:keystore.p12
+#    key-store-password: jedinho102030
+#    key-store-type: pkcs12
+#    key-alias: tomcat
+#    key-password: jedinho102030
   port: 8080

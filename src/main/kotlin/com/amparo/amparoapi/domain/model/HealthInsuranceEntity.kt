@@ -7,11 +7,6 @@ import javax.persistence.*
 
 @Entity(name = "health_insurance")
 data class HealthInsuranceEntity(
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "health_insurance_id")
-    var id: Long? = null,
-
     @Column(name = "name")
     val name: String,
 
@@ -20,15 +15,20 @@ data class HealthInsuranceEntity(
 
     @Column(name = "observation")
     val observation: String? = null,
+) {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "health_insurance_id")
+    var id: Long = 0
 
-    @OneToMany(mappedBy = "healthInsurance", fetch = FetchType.LAZY, cascade = [CascadeType.REMOVE])
-    val residentList: List<ResidentEntity>? = null,
+    @OneToOne(mappedBy = "healthInsurance", fetch = FetchType.LAZY, cascade = [CascadeType.REMOVE])
+    val resident: ResidentEntity? = null
 
     @CreationTimestamp
     @Column
-    val createdAt: LocalDateTime? = null,
+    val createdAt: LocalDateTime? = null
 
     @UpdateTimestamp
     @Column
     val updatedAt: LocalDateTime? = null
-)
+}

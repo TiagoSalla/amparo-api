@@ -1,7 +1,6 @@
 package com.amparo.amparoapi.service.impl
 
-import com.amparo.amparoapi.domain.model.request.create.TreatmentCreateRequest
-import com.amparo.amparoapi.domain.model.request.update.TreatmentUpdateRequest
+import com.amparo.amparoapi.domain.model.request.TreatmentRequest
 import com.amparo.amparoapi.domain.model.response.TreatmentResponse
 import com.amparo.amparoapi.domain.repository.TreatmentRepository
 import com.amparo.amparoapi.mapper.toEntity
@@ -17,19 +16,19 @@ final class TreatmentServiceImpl(private val treatmentRepository: TreatmentRepos
 
     override fun findById(id: Long): TreatmentResponse {
         val treatment = treatmentRepository.findById(id)
-        if(treatment.isPresent) {
+        if (treatment.isPresent) {
             return treatment.get().toResponse()
         } else {
             throw HttpClientErrorException(HttpStatus.NOT_FOUND)
         }
     }
 
-    override fun create(treatmentRequest: TreatmentCreateRequest) {
+    override fun create(treatmentRequest: TreatmentRequest) {
         treatmentRepository.save(treatmentRequest.toEntity())
     }
 
-    override fun update(id: Long, treatmentRequest: TreatmentUpdateRequest) {
-        if(treatmentRepository.findById(id).isPresent) {
+    override fun update(id: Long, treatmentRequest: TreatmentRequest) {
+        if (treatmentRepository.findById(id).isPresent) {
             val treatment = treatmentRequest.toEntity()
             treatment.id = id
             treatmentRepository.save(treatment)
@@ -39,7 +38,7 @@ final class TreatmentServiceImpl(private val treatmentRepository: TreatmentRepos
     }
 
     override fun delete(id: Long) {
-        if(treatmentRepository.findById(id).isPresent) {
+        if (treatmentRepository.findById(id).isPresent) {
             treatmentRepository.deleteById(id)
         } else {
             throw HttpClientErrorException(HttpStatus.NOT_FOUND)

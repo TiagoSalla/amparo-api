@@ -1,10 +1,10 @@
-package com.amparo.amparoapi.domain.model.request.create
+package com.amparo.amparoapi.domain.model.request
 
-data class AddressCreateRequest(
+data class AddressRequest(
     val streetName: String,
     val district: String,
     val number: Int,
-    val observation: String? = null,
+    val observation: String?,
     val zipCode: String,
     val cityName: String,
     val federativeUnit: String

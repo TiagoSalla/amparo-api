@@ -1,7 +1,6 @@
 package com.amparo.amparoapi.controller
 
-import com.amparo.amparoapi.domain.model.request.create.TreatmentCreateRequest
-import com.amparo.amparoapi.domain.model.request.update.TreatmentUpdateRequest
+import com.amparo.amparoapi.domain.model.request.TreatmentRequest
 import com.amparo.amparoapi.service.TreatmentService
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
@@ -22,14 +21,14 @@ final class TreatmentController(private val treatmentService: TreatmentService) 
 
     @ApiOperation(value = "Create a treatment")
     @PostMapping(value = ["/create"])
-    fun create(@RequestBody treatmentCreateRequest: TreatmentCreateRequest) {
-        treatmentService.create(treatmentCreateRequest)
+    fun create(@RequestBody treatmentRequest: TreatmentRequest) {
+        treatmentService.create(treatmentRequest)
     }
 
     @ApiOperation(value = "Update a treatment")
     @PostMapping(value = ["/update/{id}"])
-    fun update(@PathVariable id: Long, @RequestBody treatmentUpdateRequest: TreatmentUpdateRequest) {
-        treatmentService.update(id, treatmentUpdateRequest)
+    fun update(@PathVariable id: Long, @RequestBody treatmentRequest: TreatmentRequest) {
+        treatmentService.update(id, treatmentRequest)
     }
 
     @ApiOperation(value = "Delete a treatment")

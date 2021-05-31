@@ -1,48 +1,40 @@
 package com.amparo.amparoapi.mapper
 
+import com.amparo.amparoapi.domain.model.HealthInsuranceEntity
 import com.amparo.amparoapi.domain.model.ResidentEntity
-import com.amparo.amparoapi.domain.model.request.create.ResidentCreateRequest
-import com.amparo.amparoapi.domain.model.request.update.ResidentUpdateRequest
+import com.amparo.amparoapi.domain.model.request.ResidentRequest
 import com.amparo.amparoapi.domain.model.response.ResidentResponse
+import java.time.format.DateTimeFormatter
+
+private val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")
 
 fun ResidentEntity.toResponse() = ResidentResponse(
-    id = id,
-    name = name,
-    socialName = socialName,
-    nickname = nickname,
-    cpf = cpf,
-    rg = rg,
-    race = race,
-    gender = gender,
-    maritalStatus = maritalStatus,
-    birthDate = birthDate,
-    healthInsurance = healthInsurance.toResponse(),
-    createdAt = createdAt.toString(),
-    updatedAt = updatedAt.toString()
+    id,
+    name,
+    socialName,
+    nickname,
+    cpf,
+    rg,
+    race,
+    gender,
+    maritalStatus,
+    birthDate,
+    healthInsurance.id,
+    responsibleList?.map { it.id },
+    treatment?.id,
+    createdAt?.format(formatter),
+    updatedAt?.format(formatter)
 )
 
-fun ResidentCreateRequest.toEntity() = ResidentEntity(
-    name = name,
-    socialName = socialName,
-    nickname = nickname,
-    cpf = cpf,
-    rg = rg,
-    race = race,
-    gender = gender,
-    maritalStatus = maritalStatus,
-    birthDate = birthDate,
-    healthInsurance = healthInsurance
-)
-
-fun ResidentUpdateRequest.toEntity() = ResidentEntity(
-    name = name,
-    socialName = socialName,
-    nickname = nickname,
-    cpf = cpf,
-    rg = rg,
-    race = race,
-    gender = gender,
-    maritalStatus = maritalStatus,
-    birthDate = birthDate,
-    healthInsurance = healthInsurance
+fun ResidentRequest.toEntity(healthInsuranceEntity: HealthInsuranceEntity) = ResidentEntity(
+    name,
+    socialName,
+    nickname,
+    cpf,
+    rg,
+    race,
+    gender,
+    maritalStatus,
+    birthDate,
+    healthInsuranceEntity
 )

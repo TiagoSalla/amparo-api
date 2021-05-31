@@ -7,11 +7,6 @@ import javax.persistence.*
 
 @Entity(name = "responsible")
 data class ResponsibleEntity(
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "responsible_id")
-    var id: Long? = null,
-
     @Column(name = "name")
     val name: String,
 
@@ -40,12 +35,17 @@ data class ResponsibleEntity(
     @ManyToOne
     @JoinColumn(name = "resident_id")
     val resident: ResidentEntity,
+) {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "responsible_id")
+    var id: Long = 0
 
     @CreationTimestamp
-    @Column
-    val createdAt: LocalDateTime? = null,
+    @Column(nullable = false)
+    val createdAt: LocalDateTime? = null
 
     @UpdateTimestamp
-    @Column
+    @Column(nullable = false)
     val updatedAt: LocalDateTime? = null
-)
+}

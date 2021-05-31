@@ -7,11 +7,6 @@ import javax.persistence.*
 
 @Entity(name = "treatment")
 data class TreatmentEntity(
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "treatment_id")
-    var id: Long? = null,
-
     @OneToOne
     @JoinColumn(name = "resident_id")
     val resident: ResidentEntity,
@@ -27,12 +22,17 @@ data class TreatmentEntity(
         inverseJoinColumns = [JoinColumn(name = "medicine_id")]
     )
     val medicineList: List<MedicineEntity>,
+) {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "treatment_id")
+    var id: Long = 0
 
     @CreationTimestamp
-    @Column
-    val createdAt: LocalDateTime? = null,
+    @Column(nullable = false)
+    val createdAt: LocalDateTime? = null
 
     @UpdateTimestamp
-    @Column
+    @Column(nullable = false)
     val updatedAt: LocalDateTime? = null
-)
+}

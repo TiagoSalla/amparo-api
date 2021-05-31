@@ -10,11 +10,6 @@ import javax.persistence.*
 
 @Entity(name = "resident")
 data class ResidentEntity(
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "resident_id")
-    var id: Long? = null,
-
     @Column(name = "name")
     val name: String,
 
@@ -45,21 +40,26 @@ data class ResidentEntity(
     @Column(name = "birth_date")
     val birthDate: String,
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "health_insurance_id")
     val healthInsurance: HealthInsuranceEntity,
+) {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "resident_id")
+    var id: Long = 0
 
-    @OneToMany(mappedBy = "resident", fetch = FetchType.LAZY, cascade = [CascadeType.REMOVE])
-    val responsibleList: List<ResponsibleEntity>? = null,
+    @OneToMany(mappedBy = "resident", fetch = FetchType.EAGER, cascade = [CascadeType.REMOVE])
+    val responsibleList: List<ResponsibleEntity>? = null
 
-    @OneToOne(mappedBy = "resident", fetch = FetchType.LAZY, cascade = [CascadeType.REMOVE])
-    val treatment: TreatmentEntity? = null,
+    @OneToOne(mappedBy = "resident", fetch = FetchType.EAGER, cascade = [CascadeType.REMOVE])
+    val treatment: TreatmentEntity? = null
 
     @CreationTimestamp
-    @Column
-    val createdAt: LocalDateTime? = null,
+    @Column(nullable = false)
+    val createdAt: LocalDateTime? = null
 
     @UpdateTimestamp
-    @Column
+    @Column(nullable = false)
     val updatedAt: LocalDateTime? = null
-)
+}

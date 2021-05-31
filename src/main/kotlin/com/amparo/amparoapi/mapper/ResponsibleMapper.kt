@@ -1,45 +1,35 @@
 package com.amparo.amparoapi.mapper
 
 import com.amparo.amparoapi.domain.model.ResponsibleEntity
-import com.amparo.amparoapi.domain.model.request.create.ResponsibleCreateRequest
-import com.amparo.amparoapi.domain.model.request.update.ResponsibleUpdateRequest
+import com.amparo.amparoapi.domain.model.request.ResponsibleRequest
 import com.amparo.amparoapi.domain.model.response.ResponsibleResponse
+import java.time.format.DateTimeFormatter
+
+private val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")
 
 fun ResponsibleEntity.toResponse() = ResponsibleResponse(
-    id = id,
-    name = name,
-    socialName = socialName,
-    cpf = cpf,
-    rg = rg,
-    address = address.toResponse(),
-    email = email,
-    mobilePhone = mobilePhone,
-    residentialPhone = residentialPhone,
-    resident = resident.toResponse(),
-    createdAt = createdAt.toString(),
-    updatedAt = updatedAt.toString()
+    id,
+    name,
+    socialName,
+    cpf,
+    rg,
+    address.toResponse(),
+    email,
+    mobilePhone,
+    residentialPhone,
+    resident.toResponse(),
+    createdAt?.format(formatter),
+    updatedAt?.format(formatter)
 )
 
-fun ResponsibleCreateRequest.toEntity() = ResponsibleEntity(
-    name = name,
-    socialName = socialName,
-    cpf = cpf,
-    rg = rg,
-    address = address,
-    email = email,
-    mobilePhone = mobilePhone,
-    residentialPhone = residentialPhone,
-    resident = resident
-)
-
-fun ResponsibleUpdateRequest.toEntity() = ResponsibleEntity(
-    name = name,
-    socialName = socialName,
-    cpf = cpf,
-    rg = rg,
-    address = address,
-    email = email,
-    mobilePhone = mobilePhone,
-    residentialPhone = residentialPhone,
-    resident = resident
+fun ResponsibleRequest.toEntity() = ResponsibleEntity(
+    name,
+    socialName,
+    cpf,
+    rg,
+    address,
+    email,
+    mobilePhone,
+    residentialPhone,
+    resident
 )
