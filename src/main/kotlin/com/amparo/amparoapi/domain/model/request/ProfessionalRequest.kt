@@ -4,7 +4,6 @@ import com.amparo.amparoapi.domain.enums.Gender
 import com.amparo.amparoapi.domain.enums.MaritalStatus
 import com.amparo.amparoapi.domain.enums.ProfessionalSpecialty
 import com.amparo.amparoapi.domain.enums.Race
-import com.amparo.amparoapi.domain.model.AddressEntity
 
 data class ProfessionalRequest(
     val name: String,
@@ -20,7 +19,7 @@ data class ProfessionalRequest(
     val race: Race,
     val gender: Gender,
     val maritalStatus: MaritalStatus,
-    val address: AddressEntity,
+    val addressId: Long,
     val email: String,
     val mobilePhone: String,
     val residentialPhone: String?

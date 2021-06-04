@@ -1,9 +1,12 @@
 package com.amparo.amparoapi.controller
 
+import com.amparo.amparoapi.domain.model.request.LoginRequest
 import com.amparo.amparoapi.domain.model.request.ProfessionalRequest
 import com.amparo.amparoapi.service.ProfessionalService
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -35,5 +38,12 @@ final class ProfessionalController(private val professionalService: Professional
     @GetMapping(value = ["/delete/{id}"])
     fun delete(@PathVariable id: Long) {
         professionalService.delete(id)
+    }
+
+    @ApiOperation(value = "Validate professional login info")
+    @PostMapping(value = ["/login"])
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    fun login(@RequestBody loginRequest: LoginRequest) {
+        professionalService.login(loginRequest)
     }
 }

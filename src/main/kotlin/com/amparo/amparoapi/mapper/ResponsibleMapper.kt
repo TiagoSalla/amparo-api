@@ -1,5 +1,7 @@
 package com.amparo.amparoapi.mapper
 
+import com.amparo.amparoapi.domain.model.AddressEntity
+import com.amparo.amparoapi.domain.model.ResidentEntity
 import com.amparo.amparoapi.domain.model.ResponsibleEntity
 import com.amparo.amparoapi.domain.model.request.ResponsibleRequest
 import com.amparo.amparoapi.domain.model.response.ResponsibleResponse
@@ -22,14 +24,14 @@ fun ResponsibleEntity.toResponse() = ResponsibleResponse(
     updatedAt?.format(formatter)
 )
 
-fun ResponsibleRequest.toEntity() = ResponsibleEntity(
+fun ResponsibleRequest.toEntity(addressEntity: AddressEntity, residentEntity: ResidentEntity) = ResponsibleEntity(
     name,
     socialName,
     cpf,
     rg,
-    address,
+    addressEntity,
     email,
     mobilePhone,
     residentialPhone,
-    resident
+    residentEntity
 )

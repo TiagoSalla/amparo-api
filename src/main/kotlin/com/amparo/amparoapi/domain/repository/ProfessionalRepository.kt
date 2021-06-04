@@ -5,4 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface ProfessionalRepository : JpaRepository<ProfessionalEntity, Long>
+interface ProfessionalRepository : JpaRepository<ProfessionalEntity, Long> {
+    fun existsByUsernameAndPassword(username: String, password: String): Boolean
+}

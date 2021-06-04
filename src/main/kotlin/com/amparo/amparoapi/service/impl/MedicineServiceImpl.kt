@@ -2,6 +2,7 @@ package com.amparo.amparoapi.service.impl
 
 import com.amparo.amparoapi.domain.model.request.MedicineRequest
 import com.amparo.amparoapi.domain.model.response.MedicineResponse
+import com.amparo.amparoapi.domain.repository.DosageRepository
 import com.amparo.amparoapi.domain.repository.MedicineRepository
 import com.amparo.amparoapi.mapper.toEntity
 import com.amparo.amparoapi.mapper.toResponse
@@ -11,7 +12,8 @@ import org.springframework.stereotype.Service
 import org.springframework.web.client.HttpClientErrorException
 
 @Service
-final class MedicineServiceImpl(private val medicineRepository: MedicineRepository) : MedicineService {
+final class MedicineServiceImpl(private val medicineRepository: MedicineRepository,
+                                private val dosageRepository: DosageRepository) : MedicineService {
     override fun findAll(): List<MedicineResponse> = medicineRepository.findAll().map { it.toResponse() }
 
     override fun findById(id: Long): MedicineResponse {
@@ -24,12 +26,18 @@ final class MedicineServiceImpl(private val medicineRepository: MedicineReposito
     }
 
     override fun create(medicineRequest: MedicineRequest) {
-        medicineRepository.save(medicineRequest.toEntity())
+        val dosageEntityList = medicineRequest.dosageIdList.mapNotNull {
+            dosageRepository.findById(it)
+                .orElseThrow { HttpClientErrorException(HttpStatus.NOT_FOUND) } }
+        medicineRepository.save(medicineRequest.toEntity(dosageEntityList))
     }
 
     override fun update(id: Long, medicineRequest: MedicineRequest) {
         if (medicineRepository.findById(id).isPresent) {
-            val medicine = medicineRequest.toEntity()
+            val dosageEntityList = medicineRequest.dosageIdList.mapNotNull {
+                dosageRepository.findById(it)
+                    .orElseThrow { HttpClientErrorException(HttpStatus.NOT_FOUND) } }
+            val medicine = medicineRequest.toEntity(dosageEntityList)
             medicine.id = id
             medicineRepository.save(medicine)
         } else {

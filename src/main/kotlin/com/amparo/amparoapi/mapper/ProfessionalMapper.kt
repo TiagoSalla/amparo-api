@@ -1,5 +1,6 @@
 package com.amparo.amparoapi.mapper
 
+import com.amparo.amparoapi.domain.model.AddressEntity
 import com.amparo.amparoapi.domain.model.ProfessionalEntity
 import com.amparo.amparoapi.domain.model.request.ProfessionalRequest
 import com.amparo.amparoapi.domain.model.response.ProfessionalResponse
@@ -28,7 +29,7 @@ fun ProfessionalEntity.toResponse() = ProfessionalResponse(
     updatedAt?.format(formatter)
 )
 
-fun ProfessionalRequest.toEntity() = ProfessionalEntity(
+fun ProfessionalRequest.toEntity(addressEntity: AddressEntity) = ProfessionalEntity(
     name,
     socialName,
     nickname,
@@ -42,7 +43,7 @@ fun ProfessionalRequest.toEntity() = ProfessionalEntity(
     race,
     gender,
     maritalStatus,
-    address,
+    addressEntity,
     email,
     mobilePhone,
     residentialPhone

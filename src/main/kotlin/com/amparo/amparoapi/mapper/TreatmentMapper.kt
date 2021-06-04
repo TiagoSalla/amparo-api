@@ -1,5 +1,8 @@
 package com.amparo.amparoapi.mapper
 
+import com.amparo.amparoapi.domain.model.MedicineEntity
+import com.amparo.amparoapi.domain.model.ProfessionalEntity
+import com.amparo.amparoapi.domain.model.ResidentEntity
 import com.amparo.amparoapi.domain.model.TreatmentEntity
 import com.amparo.amparoapi.domain.model.request.TreatmentRequest
 import com.amparo.amparoapi.domain.model.response.TreatmentResponse
@@ -16,8 +19,10 @@ fun TreatmentEntity.toResponse() = TreatmentResponse(
     updatedAt?.format(formatter)
 )
 
-fun TreatmentRequest.toEntity() = TreatmentEntity(
-    resident,
-    responsibleProfessional,
-    medicineList
+fun TreatmentRequest.toEntity(residentEntity: ResidentEntity,
+                              professionalEntity: ProfessionalEntity,
+                              medicineEntityList: List<MedicineEntity>) = TreatmentEntity(
+    residentEntity,
+    professionalEntity,
+    medicineEntityList
 )

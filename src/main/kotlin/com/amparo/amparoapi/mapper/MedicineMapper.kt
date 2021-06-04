@@ -1,5 +1,6 @@
 package com.amparo.amparoapi.mapper
 
+import com.amparo.amparoapi.domain.model.DosageEntity
 import com.amparo.amparoapi.domain.model.MedicineEntity
 import com.amparo.amparoapi.domain.model.request.MedicineRequest
 import com.amparo.amparoapi.domain.model.response.MedicineResponse
@@ -18,9 +19,9 @@ fun MedicineEntity.toResponse() = MedicineResponse(
     updatedAt?.format(formatter)
 )
 
-fun MedicineRequest.toEntity() = MedicineEntity(
+fun MedicineRequest.toEntity(dosageEntityList: List<DosageEntity>) = MedicineEntity(
     name,
-    dosageList,
+    dosageEntityList,
     laboratory,
     dueDate,
     statusActive
