@@ -12,11 +12,11 @@ spring:
     password: f828fed47338762a75e73221d42c1fbae121aff3a30b8ae9cf1f3ac2a25881bd
     url: jdbc:postgresql://ec2-54-162-119-125.compute-1.amazonaws.com:5432/d4jlp6b864p0sf
 
-#server:
-#  ssl:
-#    key-store: classpath:keystore.p12
-#    key-store-password: jedinho102030
-#    key-store-type: pkcs12
-#    key-alias: tomcat
-#    key-password: jedinho102030
-#  port: 8080
+server:
+  #  ssl:
+  #    key-store: classpath:keystore.p12
+  #    key-store-password: jedinho102030
+  #    key-store-type: pkcs12
+  #    key-alias: tomcat
+  #    key-password: jedinho102030
+  port: ${PORT:8080}
