@@ -1,8 +1,10 @@
 package com.amparo.amparoapi.mapper
 
+import com.amparo.amparoapi.domain.enums.HealthInsuranceType
 import com.amparo.amparoapi.domain.model.HealthInsuranceEntity
 import com.amparo.amparoapi.domain.model.request.HealthInsuranceRequest
 import com.amparo.amparoapi.domain.model.response.HealthInsuranceResponse
+import com.amparo.amparoapi.domain.model.response.HealthInsuranceTypeResponse
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -10,7 +12,7 @@ private val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")
 
 fun HealthInsuranceEntity.toResponse() = HealthInsuranceResponse(
     id,
-    healthInsuranceType,
+    HealthInsuranceTypeResponse(healthInsuranceType.name, healthInsuranceType.description),
     inscription,
     observation,
     createdAt?.format(formatter),
@@ -18,7 +20,7 @@ fun HealthInsuranceEntity.toResponse() = HealthInsuranceResponse(
 )
 
 fun HealthInsuranceRequest.toEntity(createdAt: LocalDateTime? = null) = HealthInsuranceEntity(
-    type,
+    HealthInsuranceType.valueOf(healthInsuranceRawValue),
     inscription,
     observation,
     createdAt

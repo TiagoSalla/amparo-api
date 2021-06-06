@@ -1,5 +1,6 @@
 package com.amparo.amparoapi.service.impl
 
+import com.amparo.amparoapi.domain.enums.HealthInsuranceType
 import com.amparo.amparoapi.domain.model.HealthInsuranceEntity
 import com.amparo.amparoapi.domain.model.request.HealthInsuranceRequest
 import com.amparo.amparoapi.domain.model.request.ResidentRequest
@@ -50,7 +51,7 @@ final class ResidentServiceImpl(
     private fun findOrCreateHealthInsuranceEntity(healthInsuranceRequest: HealthInsuranceRequest): HealthInsuranceEntity {
         val healthInsuranceEntity =
             healthInsuranceRepository.findByHealthInsuranceTypeAndInscriptionAndObservation(
-                healthInsuranceRequest.type,
+                HealthInsuranceType.valueOf(healthInsuranceRequest.healthInsuranceRawValue),
                 healthInsuranceRequest.inscription,
                 healthInsuranceRequest.observation,
             )

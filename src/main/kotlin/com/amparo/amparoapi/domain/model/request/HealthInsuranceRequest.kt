@@ -1,9 +1,7 @@
 package com.amparo.amparoapi.domain.model.request
 
-import com.amparo.amparoapi.domain.enums.HealthInsuranceType
-
 data class HealthInsuranceRequest(
-    val type: HealthInsuranceType,
+    val healthInsuranceRawValue: String,
     val inscription: Int,
     val observation: String?
 )
