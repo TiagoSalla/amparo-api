@@ -4,9 +4,13 @@ import com.amparo.amparoapi.domain.model.AddressEntity
 import com.amparo.amparoapi.domain.model.ProfessionalEntity
 import com.amparo.amparoapi.domain.model.request.ProfessionalRequest
 import com.amparo.amparoapi.domain.model.response.ProfessionalResponse
+import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-private val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")
+private val formatterRequestDate = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+private val formatterDate = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+private val formatterDateTime = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")
 
 fun ProfessionalEntity.toResponse() = ProfessionalResponse(
     id,
@@ -17,7 +21,7 @@ fun ProfessionalEntity.toResponse() = ProfessionalResponse(
     register,
     cpf,
     rg,
-    birthDate,
+    birthDate.format(formatterDate),
     race,
     gender,
     maritalStatus,
@@ -25,11 +29,11 @@ fun ProfessionalEntity.toResponse() = ProfessionalResponse(
     email,
     mobilePhone,
     residentialPhone,
-    createdAt?.format(formatter),
-    updatedAt?.format(formatter)
+    createdAt?.format(formatterDateTime),
+    updatedAt?.format(formatterDateTime)
 )
 
-fun ProfessionalRequest.toEntity(addressEntity: AddressEntity) = ProfessionalEntity(
+fun ProfessionalRequest.toEntity(addressEntity: AddressEntity, createdAt: LocalDateTime? = null) = ProfessionalEntity(
     name,
     socialName,
     nickname,
@@ -39,12 +43,13 @@ fun ProfessionalRequest.toEntity(addressEntity: AddressEntity) = ProfessionalEnt
     register,
     cpf,
     rg,
-    birthDate,
+    LocalDate.parse(birthDate, formatterRequestDate),
     race,
     gender,
     maritalStatus,
     addressEntity,
     email,
     mobilePhone,
-    residentialPhone
+    residentialPhone,
+    createdAt
 )

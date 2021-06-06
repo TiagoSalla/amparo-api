@@ -1,13 +1,9 @@
 package com.amparo.amparoapi.domain.model
 
-import com.amparo.amparoapi.domain.enums.Gender
-import com.amparo.amparoapi.domain.enums.MaritalStatus
-import com.amparo.amparoapi.domain.enums.Race
-import com.amparo.amparoapi.domain.enums.ProfessionalSpecialty
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
+import java.time.LocalDate
 import java.time.LocalDateTime
-import java.util.*
 import javax.persistence.*
 
 @Entity(name = "medicine")
@@ -15,22 +11,22 @@ data class MedicineEntity(
     @Column(name = "name")
     val name: String,
 
-    @ManyToMany
-    @JoinTable(
-        name = "medicine_dosage",
-        joinColumns = [JoinColumn(name = "medicine_id")],
-        inverseJoinColumns = [JoinColumn(name = "dosage_id")]
-    )
-    val dosageList: List<DosageEntity>,
+    @ManyToOne
+    @JoinColumn(name = "dosage_id")
+    val dosage: DosageEntity,
 
     @Column(name = "laboratory")
     val laboratory: String,
 
     @Column(name = "due_date")
-    val dueDate: Date,
+    val dueDate: LocalDate,
 
     @Column(name = "status_active")
     val statusActive: Boolean,
+
+    @CreationTimestamp
+    @Column(nullable = false)
+    val createdAt: LocalDateTime? = null
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,10 +35,6 @@ data class MedicineEntity(
 
     @ManyToMany(mappedBy = "medicineList")
     val treatmentList: List<TreatmentEntity>? = null
-
-    @CreationTimestamp
-    @Column(nullable = false)
-    val createdAt: LocalDateTime? = null
 
     @UpdateTimestamp
     @Column(nullable = false)

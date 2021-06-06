@@ -21,11 +21,8 @@ final class HealthInsuranceServiceImpl(
 
     override fun findById(id: Long): HealthInsuranceResponse {
         val healthInsurance = healthInsuranceRepository.findById(id)
-        if (healthInsurance.isPresent) {
-            return healthInsurance.get().toResponse()
-        } else {
-            throw HttpClientErrorException(HttpStatus.NOT_FOUND)
-        }
+            .orElseThrow { HttpClientErrorException(HttpStatus.NOT_FOUND) }
+        return healthInsurance.toResponse()
     }
 
     override fun findAllTypes(): List<HealthInsuranceTypeResponse> {
@@ -37,20 +34,15 @@ final class HealthInsuranceServiceImpl(
     }
 
     override fun update(id: Long, healthInsuranceRequest: HealthInsuranceRequest) {
-        if (healthInsuranceRepository.findById(id).isPresent) {
-            val healthInsurance = healthInsuranceRequest.toEntity()
-            healthInsurance.id = id
-            healthInsuranceRepository.save(healthInsurance)
-        } else {
-            throw HttpClientErrorException(HttpStatus.NOT_FOUND)
-        }
+        val healthInsurance = healthInsuranceRepository.findById(id)
+            .orElseThrow { HttpClientErrorException(HttpStatus.NOT_FOUND) }
+        val updatedHealthInsurance = healthInsuranceRequest.toEntity(healthInsurance.createdAt)
+        updatedHealthInsurance.id = id
+        healthInsuranceRepository.save(updatedHealthInsurance)
     }
 
     override fun delete(id: Long) {
-        if (healthInsuranceRepository.findById(id).isPresent) {
-            healthInsuranceRepository.deleteById(id)
-        } else {
-            throw HttpClientErrorException(HttpStatus.NOT_FOUND)
-        }
+        healthInsuranceRepository.findById(id).orElseThrow { HttpClientErrorException(HttpStatus.NOT_FOUND) }
+        healthInsuranceRepository.deleteById(id)
     }
 }

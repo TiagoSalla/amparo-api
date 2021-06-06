@@ -6,6 +6,7 @@ import com.amparo.amparoapi.domain.enums.Race
 import com.amparo.amparoapi.domain.enums.ProfessionalSpecialty
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
+import java.time.LocalDate
 import java.time.LocalDateTime
 import javax.persistence.*
 
@@ -40,7 +41,7 @@ data class ProfessionalEntity(
     val rg: String,
 
     @Column(name = "birth_date")
-    val birthDate: String,
+    val birthDate: LocalDate,
 
     @Enumerated(EnumType.STRING)
     @Column(name = "race")
@@ -66,6 +67,11 @@ data class ProfessionalEntity(
 
     @Column(name = "residential_phone")
     val residentialPhone: String? = null,
+
+    @CreationTimestamp
+    @Column(nullable = false)
+    val createdAt: LocalDateTime? = null
+
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -74,10 +80,6 @@ data class ProfessionalEntity(
 
     @OneToMany(mappedBy = "responsibleProfessional", fetch = FetchType.LAZY, cascade = [CascadeType.REMOVE])
     val treatmentList: List<TreatmentEntity>? = null
-
-    @CreationTimestamp
-    @Column(nullable = false)
-    val createdAt: LocalDateTime? = null
 
     @UpdateTimestamp
     @Column(nullable = false)

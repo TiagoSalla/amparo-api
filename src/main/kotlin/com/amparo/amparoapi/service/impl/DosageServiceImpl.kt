@@ -15,12 +15,8 @@ final class DosageServiceImpl(private val dosageRepository: DosageRepository) : 
     override fun findAll(): List<DosageResponse> = dosageRepository.findAll().map { it.toResponse() }
 
     override fun findById(id: Long): DosageResponse {
-        val dosage = dosageRepository.findById(id)
-        if (dosage.isPresent) {
-            return dosage.get().toResponse()
-        } else {
-            throw HttpClientErrorException(HttpStatus.NOT_FOUND)
-        }
+        val dosage = dosageRepository.findById(id).orElseThrow { HttpClientErrorException(HttpStatus.NOT_FOUND) }
+        return dosage.toResponse()
     }
 
     override fun create(dosageRequest: DosageRequest) {
@@ -28,20 +24,14 @@ final class DosageServiceImpl(private val dosageRepository: DosageRepository) : 
     }
 
     override fun update(id: Long, dosageRequest: DosageRequest) {
-        if (dosageRepository.findById(id).isPresent) {
-            val dosage = dosageRequest.toEntity()
-            dosage.id = id
-            dosageRepository.save(dosage)
-        } else {
-            throw HttpClientErrorException(HttpStatus.NOT_FOUND)
-        }
+        val dosage = dosageRepository.findById(id).orElseThrow { HttpClientErrorException(HttpStatus.NOT_FOUND) }
+        val updatedDosage = dosageRequest.toEntity(dosage.createdAt)
+        updatedDosage.id = id
+        dosageRepository.save(updatedDosage)
     }
 
     override fun delete(id: Long) {
-        if (dosageRepository.findById(id).isPresent) {
-            dosageRepository.deleteById(id)
-        } else {
-            throw HttpClientErrorException(HttpStatus.NOT_FOUND)
-        }
+        dosageRepository.findById(id).orElseThrow { HttpClientErrorException(HttpStatus.NOT_FOUND) }
+        dosageRepository.deleteById(id)
     }
 }

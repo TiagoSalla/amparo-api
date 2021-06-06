@@ -35,15 +35,15 @@ data class ResponsibleEntity(
     @ManyToOne
     @JoinColumn(name = "resident_id")
     val resident: ResidentEntity,
+
+    @CreationTimestamp
+    @Column(nullable = false)
+    val createdAt: LocalDateTime? = null
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "responsible_id")
     var id: Long = 0
-
-    @CreationTimestamp
-    @Column(nullable = false)
-    val createdAt: LocalDateTime? = null
 
     @UpdateTimestamp
     @Column(nullable = false)

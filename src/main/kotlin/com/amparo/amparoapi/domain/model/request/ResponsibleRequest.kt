@@ -5,7 +5,7 @@ data class ResponsibleRequest(
     val socialName: String?,
     val cpf: String,
     val rg: String,
-    val addressId: Long,
+    val address: AddressRequest,
     val email: String,
     val mobilePhone: String,
     val residentialPhone: String?,

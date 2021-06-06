@@ -10,13 +10,18 @@ import javax.persistence.*
 data class HealthInsuranceEntity(
     @Enumerated(EnumType.STRING)
     @Column(name = "health_insurance_type")
-    val type: HealthInsuranceType,
+    val healthInsuranceType: HealthInsuranceType,
 
     @Column(name = "inscription")
     val inscription: Int,
 
     @Column(name = "observation")
     val observation: String? = null,
+
+    @CreationTimestamp
+    @Column(nullable = false)
+    val createdAt: LocalDateTime? = null
+
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,10 +30,6 @@ data class HealthInsuranceEntity(
 
     @OneToOne(mappedBy = "healthInsurance", fetch = FetchType.LAZY, cascade = [CascadeType.REMOVE])
     val resident: ResidentEntity? = null
-
-    @CreationTimestamp
-    @Column
-    val createdAt: LocalDateTime? = null
 
     @UpdateTimestamp
     @Column

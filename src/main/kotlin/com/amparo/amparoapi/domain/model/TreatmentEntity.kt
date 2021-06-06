@@ -22,15 +22,15 @@ data class TreatmentEntity(
         inverseJoinColumns = [JoinColumn(name = "medicine_id")]
     )
     val medicineList: List<MedicineEntity>,
+
+    @CreationTimestamp
+    @Column(nullable = false)
+    val createdAt: LocalDateTime? = null
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "treatment_id")
     var id: Long = 0
-
-    @CreationTimestamp
-    @Column(nullable = false)
-    val createdAt: LocalDateTime? = null
 
     @UpdateTimestamp
     @Column(nullable = false)

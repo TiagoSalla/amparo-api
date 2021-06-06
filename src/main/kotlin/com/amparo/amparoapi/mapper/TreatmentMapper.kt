@@ -6,6 +6,7 @@ import com.amparo.amparoapi.domain.model.ResidentEntity
 import com.amparo.amparoapi.domain.model.TreatmentEntity
 import com.amparo.amparoapi.domain.model.request.TreatmentRequest
 import com.amparo.amparoapi.domain.model.response.TreatmentResponse
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 private val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")
@@ -22,8 +23,10 @@ fun TreatmentEntity.toResponse() = TreatmentResponse(
 
 fun TreatmentRequest.toEntity(residentEntity: ResidentEntity,
                               professionalEntity: ProfessionalEntity,
-                              medicineEntityList: List<MedicineEntity>) = TreatmentEntity(
+                              medicineEntityList: List<MedicineEntity>,
+                              createdAt: LocalDateTime? = null) = TreatmentEntity(
     residentEntity,
     professionalEntity,
-    medicineEntityList
+    medicineEntityList,
+    createdAt
 )

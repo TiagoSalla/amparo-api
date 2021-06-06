@@ -29,6 +29,11 @@ data class AddressEntity(
     @Enumerated(EnumType.STRING)
     @Column(name = "federative_unit")
     val federativeUnit: FederativeUnit,
+
+    @CreationTimestamp
+    @Column(nullable = false)
+    val createdAt: LocalDateTime? = null
+
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,10 +45,6 @@ data class AddressEntity(
 
     @OneToMany(mappedBy = "address", fetch = FetchType.LAZY, cascade = [CascadeType.REMOVE])
     val professionalList: List<ProfessionalEntity>? = null
-
-    @CreationTimestamp
-    @Column(nullable = false)
-    val createdAt: LocalDateTime? = null
 
     @UpdateTimestamp
     @Column(nullable = false)

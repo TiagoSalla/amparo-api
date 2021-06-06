@@ -15,12 +15,8 @@ final class AddressServiceImpl(private val addressRepository: AddressRepository)
     override fun findAll(): List<AddressResponse> = addressRepository.findAll().map { it.toResponse() }
 
     override fun findById(id: Long): AddressResponse {
-        val address = addressRepository.findById(id)
-        if (address.isPresent) {
-            return address.get().toResponse()
-        } else {
-            throw HttpClientErrorException(HttpStatus.NOT_FOUND)
-        }
+        val address = addressRepository.findById(id).orElseThrow { HttpClientErrorException(HttpStatus.NOT_FOUND) }
+        return address.toResponse()
     }
 
     override fun create(addressRequest: AddressRequest) {
@@ -28,20 +24,14 @@ final class AddressServiceImpl(private val addressRepository: AddressRepository)
     }
 
     override fun update(id: Long, addressRequest: AddressRequest) {
-        if (addressRepository.findById(id).isPresent) {
-            val address = addressRequest.toEntity()
-            address.id = id
-            addressRepository.save(address)
-        } else {
-            throw HttpClientErrorException(HttpStatus.NOT_FOUND)
-        }
+        val address = addressRepository.findById(id).orElseThrow { HttpClientErrorException(HttpStatus.NOT_FOUND) }
+        val updatedAddress = addressRequest.toEntity(address.createdAt)
+        updatedAddress.id = id
+        addressRepository.save(updatedAddress)
     }
 
     override fun delete(id: Long) {
-        if (addressRepository.findById(id).isPresent) {
-            addressRepository.deleteById(id)
-        } else {
-            throw HttpClientErrorException(HttpStatus.NOT_FOUND)
-        }
+        addressRepository.findById(id).orElseThrow { HttpClientErrorException(HttpStatus.NOT_FOUND) }
+        addressRepository.deleteById(id)
     }
 }
