@@ -17,7 +17,7 @@ fun AddressEntity.toResponse() = AddressResponse(
     observation,
     zipCode,
     cityName,
-    federativeUnit.name,
+    federativeUnit,
     createdAt?.format(formatter),
     updatedAt?.format(formatter),
 )
