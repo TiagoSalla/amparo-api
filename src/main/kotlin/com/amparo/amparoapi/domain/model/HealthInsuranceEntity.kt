@@ -13,7 +13,7 @@ data class HealthInsuranceEntity(
     val healthInsuranceType: HealthInsuranceType,
 
     @Column(name = "inscription")
-    val inscription: Int,
+    val inscription: String,
 
     @Column(name = "observation")
     val observation: String? = null,

@@ -32,7 +32,7 @@ CREATE TABLE HEALTH_INSURANCE
 (
     HEALTH_INSURANCE_ID   bigserial    NOT NULL,
     HEALTH_INSURANCE_TYPE varchar(255) NOT NULL,
-    INSCRIPTION           integer      NOT NULL,
+    INSCRIPTION           varchar(255) NOT NULL,
     OBSERVATION           varchar(255) NULL,
     CREATED_AT            timestamp    NOT NULL,
     UPDATED_AT            timestamp    NOT NULL,

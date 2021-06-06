@@ -10,7 +10,7 @@ import java.util.Optional
 interface HealthInsuranceRepository : JpaRepository<HealthInsuranceEntity, Long> {
     fun findByHealthInsuranceTypeAndInscriptionAndObservation(
         healthInsuranceType: HealthInsuranceType,
-        inscription: Int,
+        inscription: String,
         observation: String?
     ): Optional<HealthInsuranceEntity>
 }
