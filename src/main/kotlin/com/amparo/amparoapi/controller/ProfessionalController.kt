@@ -29,13 +29,13 @@ final class ProfessionalController(private val professionalService: Professional
     }
 
     @ApiOperation(value = "Update a professional")
-    @PostMapping(value = ["/update/{id}"])
+    @DeleteMapping(value = ["/update/{id}"])
     fun update(@PathVariable id: Long, @RequestBody professionalRequest: ProfessionalRequest) {
         professionalService.update(id, professionalRequest)
     }
 
     @ApiOperation(value = "Delete a professional")
-    @GetMapping(value = ["/delete/{id}"])
+    @PutMapping(value = ["/delete/{id}"])
     fun delete(@PathVariable id: Long) {
         professionalService.delete(id)
     }

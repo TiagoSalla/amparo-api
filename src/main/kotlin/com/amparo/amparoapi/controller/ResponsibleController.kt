@@ -26,13 +26,13 @@ final class ResponsibleController(private val responsibleService: ResponsibleSer
     }
 
     @ApiOperation(value = "Update a responsible")
-    @PostMapping(value = ["/update/{id}"])
+    @PutMapping(value = ["/update/{id}"])
     fun update(@PathVariable id: Long, @RequestBody responsibleRequest: ResponsibleRequest) {
         responsibleService.update(id, responsibleRequest)
     }
 
     @ApiOperation(value = "Delete a responsible")
-    @GetMapping(value = ["/delete/{id}"])
+    @DeleteMapping(value = ["/delete/{id}"])
     fun delete(@PathVariable id: Long) {
         responsibleService.delete(id)
     }

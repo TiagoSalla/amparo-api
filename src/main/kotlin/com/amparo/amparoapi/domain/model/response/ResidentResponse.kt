@@ -15,9 +15,9 @@ data class ResidentResponse(
     val gender: Gender,
     val maritalStatus: MaritalStatus,
     val birthDate: String,
-    val healthInsuranceId: Long,
-    val responsibleIdList: List<Long>?,
-    val treatmentId: Long?,
+    val healthInsurance: HealthInsuranceResponse,
+    val responsibleList: List<ResponsibleResponse>?,
+    val treatment: TreatmentResponse?,
     val createdAt: String?,
     val updatedAt: String?
 )

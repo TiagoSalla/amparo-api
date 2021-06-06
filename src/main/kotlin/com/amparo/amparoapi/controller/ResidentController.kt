@@ -26,13 +26,13 @@ final class ResidentController(private val residentService: ResidentService) {
     }
 
     @ApiOperation(value = "Update a resident")
-    @PostMapping(value = ["/update/{id}"])
+    @PutMapping(value = ["/update/{id}"])
     fun update(@PathVariable id: Long, @RequestBody residentRequest: ResidentRequest) {
         residentService.update(id, residentRequest)
     }
 
     @ApiOperation(value = "Delete a resident")
-    @GetMapping(value = ["/delete/{id}"])
+    @DeleteMapping(value = ["/delete/{id}"])
     fun delete(@PathVariable id: Long) {
         residentService.delete(id)
     }

@@ -19,9 +19,9 @@ fun ResidentEntity.toResponse() = ResidentResponse(
     gender,
     maritalStatus,
     birthDate,
-    healthInsurance.id,
-    responsibleList?.map { it.id },
-    treatment?.id,
+    healthInsurance.toResponse(),
+    responsibleList?.map { it.toResponse() },
+    treatment?.toResponse(),
     createdAt?.format(formatter),
     updatedAt?.format(formatter)
 )

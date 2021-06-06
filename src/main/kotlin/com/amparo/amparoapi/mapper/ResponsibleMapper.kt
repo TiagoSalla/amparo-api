@@ -19,7 +19,8 @@ fun ResponsibleEntity.toResponse() = ResponsibleResponse(
     email,
     mobilePhone,
     residentialPhone,
-    resident.toResponse(),
+    resident.id,
+    resident.name,
     createdAt?.format(formatter),
     updatedAt?.format(formatter)
 )

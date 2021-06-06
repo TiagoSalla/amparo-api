@@ -9,7 +9,7 @@ private val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")
 
 fun HealthInsuranceEntity.toResponse() = HealthInsuranceResponse(
     id,
-    name,
+    type,
     inscription,
     observation,
     createdAt?.format(formatter),
@@ -17,7 +17,7 @@ fun HealthInsuranceEntity.toResponse() = HealthInsuranceResponse(
 )
 
 fun HealthInsuranceRequest.toEntity() = HealthInsuranceEntity(
-    name,
+    type,
     inscription,
     observation
 )

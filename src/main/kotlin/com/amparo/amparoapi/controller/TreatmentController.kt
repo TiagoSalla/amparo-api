@@ -26,13 +26,13 @@ final class TreatmentController(private val treatmentService: TreatmentService) 
     }
 
     @ApiOperation(value = "Update a treatment")
-    @PostMapping(value = ["/update/{id}"])
+    @PutMapping(value = ["/update/{id}"])
     fun update(@PathVariable id: Long, @RequestBody treatmentRequest: TreatmentRequest) {
         treatmentService.update(id, treatmentRequest)
     }
 
     @ApiOperation(value = "Delete a treatment")
-    @GetMapping(value = ["/delete/{id}"])
+    @DeleteMapping(value = ["/delete/{id}"])
     fun delete(@PathVariable id: Long) {
         treatmentService.delete(id)
     }

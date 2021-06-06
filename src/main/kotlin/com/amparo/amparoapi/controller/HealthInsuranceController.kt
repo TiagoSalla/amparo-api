@@ -19,6 +19,10 @@ final class HealthInsuranceController(private val healthInsuranceService: Health
     @GetMapping(value = ["/{id}"])
     fun findById(@PathVariable id: Long) = healthInsuranceService.findById(id)
 
+    @ApiOperation(value = "Find all health insurances types")
+    @GetMapping(value = ["/types"])
+    fun findAllTypes() = healthInsuranceService.findAllTypes()
+
     @ApiOperation(value = "Create a health insurance")
     @PostMapping(value = ["/create"])
     fun create(@RequestBody healthInsuranceRequest: HealthInsuranceRequest) {
@@ -26,13 +30,13 @@ final class HealthInsuranceController(private val healthInsuranceService: Health
     }
 
     @ApiOperation(value = "Update a health insurance")
-    @PostMapping(value = ["/update/{id}"])
+    @PutMapping(value = ["/update/{id}"])
     fun update(@PathVariable id: Long, @RequestBody healthInsuranceRequest: HealthInsuranceRequest) {
         healthInsuranceService.update(id, healthInsuranceRequest)
     }
 
     @ApiOperation(value = "Delete a health insurance")
-    @GetMapping(value = ["/delete/{id}"])
+    @DeleteMapping(value = ["/delete/{id}"])
     fun delete(@PathVariable id: Long) {
         return healthInsuranceService.delete(id)
     }

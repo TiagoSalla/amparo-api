@@ -12,7 +12,8 @@ private val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")
 
 fun TreatmentEntity.toResponse() = TreatmentResponse(
     id,
-    resident.toResponse(),
+    resident.id,
+    resident.name,
     responsibleProfessional.toResponse(),
     medicineList.map { it.toResponse() },
     createdAt?.format(formatter),
