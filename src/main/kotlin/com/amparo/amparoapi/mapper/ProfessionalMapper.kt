@@ -6,6 +6,7 @@ import com.amparo.amparoapi.domain.model.request.ProfessionalRequest
 import com.amparo.amparoapi.domain.model.response.ProfessionalResponse
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.Period
 import java.time.format.DateTimeFormatter
 
 private val formatterRequestDate = DateTimeFormatter.ofPattern("yyyy-MM-dd")
@@ -22,6 +23,7 @@ fun ProfessionalEntity.toResponse() = ProfessionalResponse(
     cpf,
     rg,
     birthDate.format(formatterDate),
+    Period.between(birthDate, LocalDate.now()).years,
     race,
     gender,
     maritalStatus,

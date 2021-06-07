@@ -54,8 +54,8 @@ data class ResidentEntity(
     @Column(name = "resident_id")
     var id: Long = 0
 
-    @OneToMany(mappedBy = "resident", fetch = FetchType.EAGER, cascade = [CascadeType.REMOVE])
-    val responsibleList: List<ResponsibleEntity>? = null
+    @OneToOne(mappedBy = "resident", fetch = FetchType.EAGER, cascade = [CascadeType.REMOVE])
+    val responsible: ResponsibleEntity? = null
 
     @OneToOne(mappedBy = "resident", fetch = FetchType.EAGER, cascade = [CascadeType.REMOVE])
     val treatment: TreatmentEntity? = null

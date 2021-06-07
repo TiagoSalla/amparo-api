@@ -32,7 +32,7 @@ data class ResponsibleEntity(
     @Column(name = "residential_phone")
     val residentialPhone: String? = null,
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "resident_id")
     val resident: ResidentEntity,
 

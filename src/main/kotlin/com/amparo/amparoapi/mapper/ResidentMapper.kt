@@ -6,6 +6,7 @@ import com.amparo.amparoapi.domain.model.request.ResidentRequest
 import com.amparo.amparoapi.domain.model.response.ResidentResponse
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.Period
 import java.time.format.DateTimeFormatter
 
 private val formatterRequestDate = DateTimeFormatter.ofPattern("yyyy-MM-dd")
@@ -23,8 +24,9 @@ fun ResidentEntity.toResponse() = ResidentResponse(
     gender,
     maritalStatus,
     birthDate.format(formatterDate),
+    Period.between(birthDate, LocalDate.now()).years,
     healthInsurance.toResponse(),
-    responsibleList?.map { it.toResponse() },
+    responsible?.toResponse(),
     treatment?.toResponse(),
     createdAt?.format(formatterDateTime),
     updatedAt?.format(formatterDateTime)

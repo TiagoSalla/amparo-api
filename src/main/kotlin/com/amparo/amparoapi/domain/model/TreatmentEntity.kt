@@ -15,7 +15,7 @@ data class TreatmentEntity(
     @JoinColumn(name = "professional_id")
     val responsibleProfessional: ProfessionalEntity,
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "medicine_treatment",
         joinColumns = [JoinColumn(name = "treatment_id")],

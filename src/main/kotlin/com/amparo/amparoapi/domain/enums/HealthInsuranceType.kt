@@ -32,5 +32,6 @@ enum class HealthInsuranceType(val description: String) {
     TOTAL_MEDCARE_SAUDE("Total Medcare Saúde"),
     TRASMONTANO_SAUDE("Trasmontano Saúde"),
     UNIHOSP_SAUDE("Unihosp Saúde"),
-    UNIMED("Unimed")
+    UNIMED("Unimed"),
+    SUS("Sistema Único de Saúde")
 }
