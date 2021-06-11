@@ -10,7 +10,6 @@ import java.time.Period
 import java.time.format.DateTimeFormatter
 
 private val formatterRequestDate = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-private val formatterDate = DateTimeFormatter.ofPattern("dd/MM/yyyy")
 private val formatterDateTime = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")
 
 fun ProfessionalEntity.toResponse() = ProfessionalResponse(
@@ -22,7 +21,7 @@ fun ProfessionalEntity.toResponse() = ProfessionalResponse(
     register,
     cpf,
     rg,
-    birthDate.format(formatterDate),
+    birthDate.toString(),
     Period.between(birthDate, LocalDate.now()).years,
     race,
     gender,

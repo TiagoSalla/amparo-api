@@ -3,7 +3,6 @@ package com.amparo.amparoapi.service.impl
 import com.amparo.amparoapi.domain.enums.HealthInsuranceType
 import com.amparo.amparoapi.domain.model.request.HealthInsuranceRequest
 import com.amparo.amparoapi.domain.model.response.HealthInsuranceResponse
-import com.amparo.amparoapi.domain.model.response.HealthInsuranceTypeResponse
 import com.amparo.amparoapi.domain.repository.HealthInsuranceRepository
 import com.amparo.amparoapi.mapper.toEntity
 import com.amparo.amparoapi.mapper.toResponse
@@ -23,10 +22,6 @@ final class HealthInsuranceServiceImpl(
         val healthInsurance = healthInsuranceRepository.findById(id)
             .orElseThrow { HttpClientErrorException(HttpStatus.NOT_FOUND) }
         return healthInsurance.toResponse()
-    }
-
-    override fun findAllTypes(): List<HealthInsuranceTypeResponse> {
-        return HealthInsuranceType.values().map { HealthInsuranceTypeResponse(it.name, it.description) }
     }
 
     override fun create(healthInsuranceRequest: HealthInsuranceRequest) {

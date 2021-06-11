@@ -19,10 +19,6 @@ final class HealthInsuranceController(private val healthInsuranceService: Health
     @GetMapping(value = ["/{id}"])
     fun findById(@PathVariable id: Long) = healthInsuranceService.findById(id)
 
-    @ApiOperation(value = "Find all health insurances types")
-    @GetMapping(value = ["/types"])
-    fun findAllTypes() = healthInsuranceService.findAllTypes()
-
     @ApiOperation(value = "Create a health insurance")
     @PostMapping(value = ["/create"])
     fun create(@RequestBody healthInsuranceRequest: HealthInsuranceRequest) {
