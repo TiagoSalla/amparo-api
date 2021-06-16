@@ -19,6 +19,10 @@ final class TreatmentController(private val treatmentService: TreatmentService) 
     @GetMapping(value = ["/{id}"])
     fun findById(@PathVariable id: Long) = treatmentService.findById(id)
 
+    @ApiOperation(value = "Get treatment selection options")
+    @GetMapping(value = ["/options"])
+    fun getSelectionOptions() = treatmentService.getSelectionOptions()
+
     @ApiOperation(value = "Create a treatment")
     @PostMapping(value = ["/create"])
     fun create(@RequestBody treatmentRequest: TreatmentRequest) {

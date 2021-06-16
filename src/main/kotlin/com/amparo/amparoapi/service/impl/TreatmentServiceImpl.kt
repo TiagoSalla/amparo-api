@@ -2,6 +2,7 @@ package com.amparo.amparoapi.service.impl
 
 import com.amparo.amparoapi.domain.model.MedicineEntity
 import com.amparo.amparoapi.domain.model.request.TreatmentRequest
+import com.amparo.amparoapi.domain.model.response.TreatmentOptions
 import com.amparo.amparoapi.domain.model.response.TreatmentResponse
 import com.amparo.amparoapi.domain.repository.MedicineRepository
 import com.amparo.amparoapi.domain.repository.ProfessionalRepository
@@ -25,6 +26,16 @@ final class TreatmentServiceImpl(private val treatmentRepository: TreatmentRepos
         val treatment = treatmentRepository.findById(id).orElseThrow { HttpClientErrorException(HttpStatus.NOT_FOUND) }
 
         return treatment.toResponse()
+    }
+
+    override fun getSelectionOptions(): TreatmentOptions {
+        val residentList = residentRepository.findAll()
+        val professionalList = professionalRepository.findAll()
+        val medicineList = medicineRepository.findAll()
+
+        return TreatmentOptions(residentList.map { it.toResponse() },
+            professionalList.map { it.toResponse() },
+            medicineList.map { it.toResponse() })
     }
 
     override fun create(treatmentRequest: TreatmentRequest) {

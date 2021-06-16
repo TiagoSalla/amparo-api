@@ -3,8 +3,6 @@ spring:
     database: postgresql
     show-sql: false
     generate-ddl: false
-    hibernate:
-      ddl-auto: update
   datasource:
     driver-class-name: org.postgresql.Driver
     name: d4jlp6b864p0sf
