@@ -26,13 +26,13 @@ final class HealthInsuranceController(private val healthInsuranceService: Health
     }
 
     @ApiOperation(value = "Update a health insurance")
-    @PostMapping(value = ["/update/{id}"])
+    @PutMapping(value = ["/update/{id}"])
     fun update(@PathVariable id: Long, @RequestBody healthInsuranceRequest: HealthInsuranceRequest) {
         healthInsuranceService.update(id, healthInsuranceRequest)
     }
 
     @ApiOperation(value = "Delete a health insurance")
-    @GetMapping(value = ["/delete/{id}"])
+    @DeleteMapping(value = ["/delete/{id}"])
     fun delete(@PathVariable id: Long) {
         return healthInsuranceService.delete(id)
     }

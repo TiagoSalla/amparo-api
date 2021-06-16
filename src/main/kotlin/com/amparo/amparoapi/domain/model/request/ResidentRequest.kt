@@ -14,5 +14,5 @@ data class ResidentRequest(
     val gender: Gender,
     val maritalStatus: MaritalStatus,
     val birthDate: String,
-    val healthInsuranceId: Long
+    val healthInsurance: HealthInsuranceRequest
 )

@@ -4,25 +4,30 @@ import com.amparo.amparoapi.domain.model.DosageEntity
 import com.amparo.amparoapi.domain.model.MedicineEntity
 import com.amparo.amparoapi.domain.model.request.MedicineRequest
 import com.amparo.amparoapi.domain.model.response.MedicineResponse
+import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-private val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")
+private val formatterRequestDate = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+private val formatterDate = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+private val formatterDateTime = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")
 
 fun MedicineEntity.toResponse() = MedicineResponse(
     id,
     name,
-    dosageList.map { it.toResponse() },
+    dosage.toResponse(),
     laboratory,
-    dueDate,
+    dueDate.format(formatterDate),
     statusActive,
-    createdAt?.format(formatter),
-    updatedAt?.format(formatter)
+    createdAt?.format(formatterDateTime),
+    updatedAt?.format(formatterDateTime)
 )
 
-fun MedicineRequest.toEntity(dosageEntityList: List<DosageEntity>) = MedicineEntity(
+fun MedicineRequest.toEntity(dosageEntity: DosageEntity, createdAt: LocalDateTime? = null) = MedicineEntity(
     name,
-    dosageEntityList,
+    dosageEntity,
     laboratory,
-    dueDate,
-    statusActive
+    LocalDate.parse(dueDate, formatterRequestDate),
+    statusActive,
+    createdAt
 )

@@ -1,11 +1,9 @@
 package com.amparo.amparoapi.domain.model.request
 
-import java.util.Date
-
 data class MedicineRequest(
     val name: String,
-    val dosageIdList: List<Long>,
+    val dosage: DosageRequest,
     val laboratory: String,
-    val dueDate: Date,
+    val dueDate: String,
     val statusActive: Boolean
 )

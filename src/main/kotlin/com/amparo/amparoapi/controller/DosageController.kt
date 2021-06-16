@@ -26,13 +26,13 @@ final class DosageController(private val dosageService: DosageService) {
     }
 
     @ApiOperation(value = "Update a dosage")
-    @PostMapping(value = ["/update/{id}"])
+    @PutMapping(value = ["/update/{id}"])
     fun update(@PathVariable id: Long, @RequestBody dosageRequest: DosageRequest) {
         dosageService.update(id, dosageRequest)
     }
 
     @ApiOperation(value = "Delete a dosage")
-    @GetMapping(value = ["/delete/{id}"])
+    @DeleteMapping(value = ["/delete/{id}"])
     fun delete(@PathVariable id: Long) {
         return dosageService.delete(id)
     }

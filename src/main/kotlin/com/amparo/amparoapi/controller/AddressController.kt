@@ -26,13 +26,13 @@ final class AddressController(private val addressService: AddressService) {
     }
 
     @ApiOperation(value = "Update an address")
-    @PostMapping(value = ["/update/{id}"])
+    @PutMapping(value = ["/update/{id}"])
     fun update(@PathVariable id: Long, @RequestBody addressRequest: AddressRequest) {
         addressService.update(id, addressRequest)
     }
 
     @ApiOperation(value = "Delete an address")
-    @GetMapping(value = ["/delete/{id}"])
+    @DeleteMapping(value = ["/delete/{id}"])
     fun delete(@PathVariable id: Long) {
         return addressService.delete(id)
     }

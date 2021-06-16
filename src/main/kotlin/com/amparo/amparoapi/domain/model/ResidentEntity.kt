@@ -5,6 +5,7 @@ import com.amparo.amparoapi.domain.enums.MaritalStatus
 import com.amparo.amparoapi.domain.enums.Race
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
+import java.time.LocalDate
 import java.time.LocalDateTime
 import javax.persistence.*
 
@@ -38,26 +39,26 @@ data class ResidentEntity(
     val maritalStatus: MaritalStatus,
 
     @Column(name = "birth_date")
-    val birthDate: String,
+    val birthDate: LocalDate,
 
     @OneToOne
     @JoinColumn(name = "health_insurance_id")
     val healthInsurance: HealthInsuranceEntity,
+
+    @CreationTimestamp
+    @Column(nullable = false)
+    val createdAt: LocalDateTime? = null,
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "resident_id")
     var id: Long = 0
 
-    @OneToMany(mappedBy = "resident", fetch = FetchType.EAGER, cascade = [CascadeType.REMOVE])
-    val responsibleList: List<ResponsibleEntity>? = null
+    @OneToOne(mappedBy = "resident", fetch = FetchType.EAGER, cascade = [CascadeType.REMOVE])
+    val responsible: ResponsibleEntity? = null
 
     @OneToOne(mappedBy = "resident", fetch = FetchType.EAGER, cascade = [CascadeType.REMOVE])
     val treatment: TreatmentEntity? = null
-
-    @CreationTimestamp
-    @Column(nullable = false)
-    val createdAt: LocalDateTime? = null
 
     @UpdateTimestamp
     @Column(nullable = false)

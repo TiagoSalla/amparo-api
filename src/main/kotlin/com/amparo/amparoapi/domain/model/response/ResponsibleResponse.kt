@@ -10,7 +10,8 @@ data class ResponsibleResponse(
     val email: String,
     val mobilePhone: String,
     val residentialPhone: String?,
-    val resident: ResidentResponse,
+    val residentId: Long,
+    val residentName: String,
     val createdAt: String?,
     val updatedAt: String?
 )

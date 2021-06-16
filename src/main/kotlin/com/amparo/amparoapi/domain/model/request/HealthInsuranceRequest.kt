@@ -1,7 +1,7 @@
 package com.amparo.amparoapi.domain.model.request
 
 data class HealthInsuranceRequest(
-    val name: String,
-    val inscription: Int,
+    val healthInsuranceRawValue: String,
+    val inscription: String,
     val observation: String?
 )

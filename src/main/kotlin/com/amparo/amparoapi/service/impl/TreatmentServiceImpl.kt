@@ -1,6 +1,8 @@
 package com.amparo.amparoapi.service.impl
 
+import com.amparo.amparoapi.domain.model.MedicineEntity
 import com.amparo.amparoapi.domain.model.request.TreatmentRequest
+import com.amparo.amparoapi.domain.model.response.TreatmentOptions
 import com.amparo.amparoapi.domain.model.response.TreatmentResponse
 import com.amparo.amparoapi.domain.repository.MedicineRepository
 import com.amparo.amparoapi.domain.repository.ProfessionalRepository
@@ -21,47 +23,53 @@ final class TreatmentServiceImpl(private val treatmentRepository: TreatmentRepos
     override fun findAll(): List<TreatmentResponse> = treatmentRepository.findAll().map { it.toResponse() }
 
     override fun findById(id: Long): TreatmentResponse {
-        val treatment = treatmentRepository.findById(id)
-        if (treatment.isPresent) {
-            return treatment.get().toResponse()
-        } else {
-            throw HttpClientErrorException(HttpStatus.NOT_FOUND)
-        }
+        val treatment = treatmentRepository.findById(id).orElseThrow { HttpClientErrorException(HttpStatus.NOT_FOUND) }
+
+        return treatment.toResponse()
+    }
+
+    override fun getSelectionOptions(): TreatmentOptions {
+        val residentList = residentRepository.findAll()
+        val professionalList = professionalRepository.findAll()
+        val medicineList = medicineRepository.findAll()
+
+        return TreatmentOptions(residentList.map { it.toResponse() },
+            professionalList.map { it.toResponse() },
+            medicineList.map { it.toResponse() })
     }
 
     override fun create(treatmentRequest: TreatmentRequest) {
-        val medicineEntityList = treatmentRequest.medicineIdList.mapNotNull {
-            medicineRepository.findById(it)
-                .orElseThrow { HttpClientErrorException(HttpStatus.NOT_FOUND) } }
+        val medicineEntityList = findMedicineEntityListById(treatmentRequest.medicineIdList)
         val residentEntity = residentRepository.findById(treatmentRequest.residentId)
             .orElseThrow { HttpClientErrorException(HttpStatus.NOT_FOUND) }
         val professionalEntity = professionalRepository.findById(treatmentRequest.responsibleProfessionalId)
             .orElseThrow { HttpClientErrorException(HttpStatus.NOT_FOUND) }
+
         treatmentRepository.save(treatmentRequest.toEntity(residentEntity, professionalEntity, medicineEntityList))
     }
 
     override fun update(id: Long, treatmentRequest: TreatmentRequest) {
-        if (treatmentRepository.findById(id).isPresent) {
-            val medicineEntityList = treatmentRequest.medicineIdList.mapNotNull {
-                medicineRepository.findById(it)
-                    .orElseThrow { HttpClientErrorException(HttpStatus.NOT_FOUND) } }
-            val residentEntity = residentRepository.findById(treatmentRequest.residentId)
-                .orElseThrow { HttpClientErrorException(HttpStatus.NOT_FOUND) }
-            val professionalEntity = professionalRepository.findById(treatmentRequest.responsibleProfessionalId)
-                .orElseThrow { HttpClientErrorException(HttpStatus.NOT_FOUND) }
-            val treatment = treatmentRequest.toEntity(residentEntity, professionalEntity, medicineEntityList)
-            treatment.id = id
-            treatmentRepository.save(treatment)
-        } else {
-            throw HttpClientErrorException(HttpStatus.NOT_FOUND)
-        }
+        val treatment = treatmentRepository.findById(id).orElseThrow { HttpClientErrorException(HttpStatus.NOT_FOUND) }
+        val medicineEntityList = findMedicineEntityListById(treatmentRequest.medicineIdList)
+        val residentEntity = residentRepository.findById(treatmentRequest.residentId)
+            .orElseThrow { HttpClientErrorException(HttpStatus.NOT_FOUND) }
+        val professionalEntity = professionalRepository.findById(treatmentRequest.responsibleProfessionalId)
+            .orElseThrow { HttpClientErrorException(HttpStatus.NOT_FOUND) }
+
+        val updatedTreatment =
+            treatmentRequest.toEntity(residentEntity, professionalEntity, medicineEntityList, treatment.createdAt)
+        updatedTreatment.id = id
+        treatmentRepository.save(updatedTreatment)
     }
 
     override fun delete(id: Long) {
-        if (treatmentRepository.findById(id).isPresent) {
-            treatmentRepository.deleteById(id)
-        } else {
-            throw HttpClientErrorException(HttpStatus.NOT_FOUND)
-        }
+        treatmentRepository.findById(id).orElseThrow { HttpClientErrorException(HttpStatus.NOT_FOUND) }
+
+        treatmentRepository.deleteById(id)
+    }
+
+    private fun findMedicineEntityListById(medicineIdList: List<Long>): List<MedicineEntity> {
+        return medicineIdList.mapNotNull {
+            medicineRepository.findById(it).orElseThrow { HttpClientErrorException(HttpStatus.NOT_FOUND) } }
     }
 }

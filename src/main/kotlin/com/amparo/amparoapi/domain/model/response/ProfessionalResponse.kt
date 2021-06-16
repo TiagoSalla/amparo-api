@@ -15,6 +15,7 @@ data class ProfessionalResponse(
     val cpf: String,
     val rg: String,
     val birthDate: String,
+    val age: Int,
     val race: Race,
     val gender: Gender,
     val maritalStatus: MaritalStatus,

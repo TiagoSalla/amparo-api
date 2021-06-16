@@ -27,18 +27,19 @@ data class DosageEntity(
     @Enumerated(EnumType.STRING)
     @Column(name = "administration_route")
     val administrationRoute: AdministrationRoute,
+
+    @CreationTimestamp
+    @Column(nullable = false)
+    val createdAt: LocalDateTime? = null
+
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "dosage_id")
     var id: Long = 0
 
-    @ManyToMany(mappedBy = "dosageList")
+    @OneToMany(mappedBy = "dosage", fetch = FetchType.LAZY, cascade = [CascadeType.REMOVE])
     val medicineList: List<MedicineEntity>? = null
-
-    @CreationTimestamp
-    @Column(nullable = false)
-    val createdAt: LocalDateTime? = null
 
     @UpdateTimestamp
     @Column(nullable = false)

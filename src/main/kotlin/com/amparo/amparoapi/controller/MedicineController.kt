@@ -26,13 +26,13 @@ final class MedicineController(private val medicineService: MedicineService) {
     }
 
     @ApiOperation(value = "Update a medicine")
-    @PostMapping(value = ["/update/{id}"])
+    @PutMapping(value = ["/update/{id}"])
     fun update(@PathVariable id: Long, @RequestBody medicineRequest: MedicineRequest) {
         medicineService.update(id, medicineRequest)
     }
 
     @ApiOperation(value = "Delete a medicine")
-    @GetMapping(value = ["/delete/{id}"])
+    @DeleteMapping(value = ["/delete/{id}"])
     fun delete(@PathVariable id: Long) {
         medicineService.delete(id)
     }

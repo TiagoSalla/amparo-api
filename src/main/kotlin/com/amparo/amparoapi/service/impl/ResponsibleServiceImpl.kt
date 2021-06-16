@@ -1,5 +1,7 @@
 package com.amparo.amparoapi.service.impl
 
+import com.amparo.amparoapi.domain.model.AddressEntity
+import com.amparo.amparoapi.domain.model.request.AddressRequest
 import com.amparo.amparoapi.domain.model.request.ResponsibleRequest
 import com.amparo.amparoapi.domain.model.response.ResponsibleResponse
 import com.amparo.amparoapi.domain.repository.AddressRepository
@@ -20,40 +22,53 @@ final class ResponsibleServiceImpl(private val responsibleRepository: Responsibl
 
     override fun findById(id: Long): ResponsibleResponse {
         val responsible = responsibleRepository.findById(id)
-        if (responsible.isPresent) {
-            return responsible.get().toResponse()
-        } else {
-            throw HttpClientErrorException(HttpStatus.NOT_FOUND)
-        }
+            .orElseThrow { HttpClientErrorException(HttpStatus.NOT_FOUND) }
+
+        return responsible.toResponse()
     }
 
     override fun create(responsibleRequest: ResponsibleRequest) {
-        val addressEntity = addressRepository.findById(responsibleRequest.addressId)
-            .orElseThrow { HttpClientErrorException(HttpStatus.NOT_FOUND) }
         val residentEntity = residentRepository.findById(responsibleRequest.residentId)
             .orElseThrow { HttpClientErrorException(HttpStatus.NOT_FOUND) }
+        val addressEntity = findOrCreateAddressEntity(responsibleRequest.address)
+
         responsibleRepository.save(responsibleRequest.toEntity(addressEntity, residentEntity))
     }
 
     override fun update(id: Long, responsibleRequest: ResponsibleRequest) {
-        if (responsibleRepository.findById(id).isPresent) {
-            val addressEntity = addressRepository.findById(responsibleRequest.addressId)
-                .orElseThrow { HttpClientErrorException(HttpStatus.NOT_FOUND) }
-            val residentEntity = residentRepository.findById(responsibleRequest.residentId)
-                .orElseThrow { HttpClientErrorException(HttpStatus.NOT_FOUND) }
-            val responsible = responsibleRequest.toEntity(addressEntity, residentEntity)
-            responsible.id = id
-            responsibleRepository.save(responsible)
-        } else {
-            throw HttpClientErrorException(HttpStatus.NOT_FOUND)
-        }
+        val responsible = responsibleRepository.findById(id)
+            .orElseThrow { HttpClientErrorException(HttpStatus.NOT_FOUND) }
+        val residentEntity = residentRepository.findById(responsibleRequest.residentId)
+            .orElseThrow { HttpClientErrorException(HttpStatus.NOT_FOUND) }
+        val addressEntity = findOrCreateAddressEntity(responsibleRequest.address)
+
+        val updatedResponsible = responsibleRequest.toEntity(addressEntity, residentEntity, responsible.createdAt)
+        updatedResponsible.id = id
+        responsibleRepository.save(updatedResponsible)
     }
 
     override fun delete(id: Long) {
-        if (responsibleRepository.findById(id).isPresent) {
-            responsibleRepository.deleteById(id)
+        responsibleRepository.findById(id).orElseThrow { HttpClientErrorException(HttpStatus.NOT_FOUND) }
+
+        responsibleRepository.deleteById(id)
+    }
+
+    private fun findOrCreateAddressEntity(addressRequest: AddressRequest): AddressEntity {
+        val addressEntity =
+            addressRepository.findByStreetNameAndDistrictAndNumberAndObservationAndZipCodeAndCityNameAndFederativeUnit(
+                addressRequest.streetName,
+                addressRequest.district,
+                addressRequest.number,
+                addressRequest.observation,
+                addressRequest.zipCode,
+                addressRequest.cityName,
+                addressRequest.federativeUnit
+            )
+
+        return if (addressEntity.isPresent) {
+            addressEntity.get()
         } else {
-            throw HttpClientErrorException(HttpStatus.NOT_FOUND)
+            addressRepository.save(addressRequest.toEntity())
         }
     }
 }
