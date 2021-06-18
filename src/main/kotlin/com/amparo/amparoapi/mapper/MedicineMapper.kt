@@ -9,7 +9,6 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 private val formatterRequestDate = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-private val formatterDate = DateTimeFormatter.ofPattern("dd/MM/yyyy")
 private val formatterDateTime = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")
 
 fun MedicineEntity.toResponse() = MedicineResponse(
@@ -17,7 +16,7 @@ fun MedicineEntity.toResponse() = MedicineResponse(
     name,
     dosage.toResponse(),
     laboratory,
-    dueDate.format(formatterDate),
+    dueDate.toString(),
     statusActive,
     createdAt?.format(formatterDateTime),
     updatedAt?.format(formatterDateTime)
